@@ -1,14 +1,16 @@
 from flask import Flask, render_template
-from profile.profile import profile
-from feed.feed import feed
+from config import Config
+from flask_sqlalchemy import SQLAlchemy
+
 
 app = Flask(__name__)
+app.config.from_object(Config)
 
-# Blueprints
-app.register_blueprint(profile, url_prefix='/profile')
-app.register_blueprint(feed, url_prefix='')
+database = SQLAlchemy(app)
+
+darkTheme = True
 
 
-@app.route('/')
-def hello_world():
-    return render_template('base.html.jinja2')
+def switch_theme():
+    global darkTheme
+    darkTheme = not darkTheme

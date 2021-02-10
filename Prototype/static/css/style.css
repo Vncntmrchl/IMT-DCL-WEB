@@ -1,0 +1,18 @@
+[data-theme="light"] {
+    /* Colors for light theme */
+    --primary-color: white;
+    --accent-color: #be5f77;
+    --font-color: black;
+}
+
+[data-theme="dark"] {
+    /* Colors for dark theme */
+    --primary-coor: #2d2d30;
+    --accent-color: #a45166;
+    --font-color: #bcbcbc;
+}
+
+body {
+    color: var(--font-color);
+    background-color: var(--primary-color);
+}
