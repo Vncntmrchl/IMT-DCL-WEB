@@ -23,8 +23,11 @@ def setup():
 
     p1 = Post(author='Vincent', description='First post!')
     p2 = Post(author='Vincent', description='Second post!')
-    db.session.add(p1, p2)
-    db.session.commit()
+
+    with app.app_context():
+        db.create_all()
+        db.session.add(p1, p2)
+        db.session.commit()
 
     return app
 
