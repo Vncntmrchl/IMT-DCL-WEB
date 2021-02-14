@@ -1,11 +1,6 @@
-from app import app, database
-from models.profile.profile import profile
-from models.feed.feed import feed
+from app import setup
 
-
-# Blueprints
-app.register_blueprint(profile, url_prefix='/profile')
-app.register_blueprint(feed, url_prefix='')
+app = setup()
 
 if __name__ == '__main__':
     app.run()

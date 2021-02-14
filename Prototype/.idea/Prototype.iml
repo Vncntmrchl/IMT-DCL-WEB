@@ -13,7 +13,9 @@
     <option name="TEMPLATE_CONFIGURATION" value="Jinja2" />
     <option name="TEMPLATE_FOLDERS">
       <list>
-        <option value="$MODULE_DIR$/../Prototype\templates" />
+        <option value="$MODULE_DIR$/templates" />
+        <option value="$MODULE_DIR$/feed/templates" />
+        <option value="$MODULE_DIR$/profile/templates" />
       </list>
     </option>
   </component>
