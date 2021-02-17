@@ -21,13 +21,13 @@ def setup():
     app.register_blueprint(profile, url_prefix='/profile')
     app.register_blueprint(feed, url_prefix='')
 
-    p1 = Post(author='Vincent', description='First post!')
-    p2 = Post(author='Vincent', description='Second post!')
+    # p1 = Post(author='Vincent', description='First post!')
+    # p2 = Post(author='Vincent', description='Second post!')
 
-    with app.app_context():
-        db.create_all()
-        db.session.add(p1, p2)
-        db.session.commit()
+    # with app.app_context():
+    #     db.create_all()
+    #     db.session.add(p1, p2)
+    #     db.session.commit()
 
     return app
 
