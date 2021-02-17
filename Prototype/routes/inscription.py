@@ -9,7 +9,7 @@ inscription = Blueprint('inscription', __name__, template_folder='templates')
 
 
 def traitement_formulaire_inscription(form):
-    return "super nickel !"
+    return flask.render_template("base.html.jinja2") + "félicitation " + flask.request.form.get("username", "") + " pour ton inscription au meilleur projet web"
 
 
 def add_user_database(form):
