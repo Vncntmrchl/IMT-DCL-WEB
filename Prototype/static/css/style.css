@@ -1,31 +1,49 @@
-[data-theme="light"] {
+
+:root {
+    font-size: 100%;
+
+    --primary-color: white;
+    --accent-color: #be5f77;
+    --font-color: black;
+    --card-color: white;
+}
+
+html[data-theme="light"] {
     /* Colors for light theme */
     --primary-color: white;
     --accent-color: #be5f77;
     --font-color: black;
+    --card-color: white;
 }
 
-[data-theme="dark"] {
+html[data-theme="dark"] {
     /* Colors for dark theme */
-    --primary-coor: #2d2d30;
-    --accent-color: #a45166;
-    --font-color: #bcbcbc;
-}
-
-:root {
-    font-size: 100%;
+    --primary-color: #000000;
+    --accent-color: #5f2f3b;
+    --font-color: #ababab;
+    --card-color: #2d2d2d;
 }
 
 body {
+    background: var(--primary-color);
     color: var(--font-color);
-    background-color: var(--primary-color);
+}
+
+nav {
+    background: var(--accent-color);
+    color: var(--font-color);
 }
 
 .post {
     width: 25rem;
-    margin: 5px;
+    margin: 7px;
+    background: var(--card-color);
+    color: var(--font-color);
+
 }
 
 .feed {
     padding: 5% 10%;
 }
+
+
