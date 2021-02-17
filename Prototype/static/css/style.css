@@ -21,8 +21,11 @@ body {
     background-color: var(--primary-color);
 }
 
-.card.post {
-    width: 18rem;
+.post {
+    width: 25rem;
     margin: 5px;
-    border-color: pink;
+}
+
+.feed {
+    padding: 5% 10%;
 }
