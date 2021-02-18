@@ -2,14 +2,13 @@ import flask
 from flask import Blueprint, render_template
 
 from models.User import User
-from models.post import Post
 from database.database import db
 
-inscription = Blueprint('inscription', __name__, template_folder='templates')
+registration = Blueprint('registration', __name__, template_folder='templates')
 
 
-def traitement_formulaire_inscription(form):
-    return flask.render_template("base.html.jinja2") + "félicitation " + flask.request.form.get("username", "") + " pour ton inscription au meilleur projet web"
+def registration_form_process(form):
+    return flask.render_template("base.html.jinja2") + flask.request.form.get("username", "") + " now registered."
 
 
 def add_user_database(form):
@@ -20,21 +19,21 @@ def add_user_database(form):
     new_task = User(mail=mail, name=name, username=username, password=password)
     db.session.add(new_task)
     db.session.commit()
-    for user in User.query.all():
+    for user in db.session.query(User).all():
         print(getattr(user, "password"))
 
 
-def delete_data_base():
-    for user in User.query.all():
+def delete_all_user_database():
+    for user in db.session.query(User).all():
         db.session.delete(user)
     db.session.commit()
 
 
-def afficher_formulaire_inscription(form, errors):
-    return flask.render_template("inscription/inscription.html.jinja2", errors=errors, form=form)
+def display_registration_form(form, errors):
+    return render_template("registration/registration.jinja2", errors=errors, form=form)
 
 
-def formulaire_est_valide(form):
+def form_is_valid(form):
     mail = flask.request.form.get("mail", "")
     name = flask.request.form.get("name", "")
     username = flask.request.form.get("username", "")
@@ -66,24 +65,24 @@ def formulaire_est_valide(form):
 
 
 def check_mail(mail):
-    for user in User.query.all():
+    for user in db.session.query(User).all():
         if mail == getattr(user, "mail"):
             return False
     return True
 
 
 def check_username(username):
-    for user in User.query.all():
+    for user in db.session.query(User).all():
         if username == getattr(user, "username"):
             return False
     return True
 
 
-@inscription.route('/', methods=["GET", "POST"])
-def fonction_formulaire_inscription():
-    form_est_valide, errors = formulaire_est_valide(flask.request.form)
-    if not form_est_valide:
-        return afficher_formulaire_inscription(flask.request.form, errors)
+@registration.route('/', methods=["GET", "POST"])
+def registration_form_function():
+    valid, errors = form_is_valid(flask.request.form)
+    if not valid:
+        return display_registration_form(flask.request.form, errors)
     else:
         add_user_database(flask.request.form)
-        return traitement_formulaire_inscription(flask.request.form)
+        return registration_form_process(flask.request.form)
