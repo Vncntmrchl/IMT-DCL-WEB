@@ -30,7 +30,7 @@ def delete_all_user_database():
 
 
 def display_registration_form(form, errors):
-    return render_template("registration/registration.jinja2", errors=errors, form=form)
+    return render_template("authentication/registration.jinja2", errors=errors, form=form)
 
 
 def form_is_valid(form):

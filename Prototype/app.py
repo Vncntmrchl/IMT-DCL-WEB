@@ -4,7 +4,7 @@ from config import Config
 from database import database
 
 # Blueprints imports
-from routes.connection import connection
+from routes.login import login
 from routes.registration import registration
 from routes.profile import profile
 from routes.feed import feed
@@ -20,7 +20,7 @@ def setup():
     app.register_blueprint(profile, url_prefix='/profile')
     app.register_blueprint(feed, url_prefix='')
     app.register_blueprint(registration, url_prefix='/registration')
-    app.register_blueprint(connection, url_prefix='/connection')
+    app.register_blueprint(login, url_prefix='/login')
 
     # p1 = Post(author='Vincent', description='First post!')
     # p2 = Post(author='Vincent', description='Second post!')
