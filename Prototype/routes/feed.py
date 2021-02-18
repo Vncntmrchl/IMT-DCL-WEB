@@ -1,6 +1,6 @@
 
 from flask import Blueprint, render_template
-from models.post import Post
+from models.Post import Post
 from database.database import db
 
 feed = Blueprint('feed', __name__, template_folder='templates')

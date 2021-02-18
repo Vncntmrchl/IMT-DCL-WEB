@@ -1,14 +1,13 @@
 
 from flask import Flask
 from config import Config
-from database.database import db
+from database import database
 
 # Blueprints imports
+from routes.login import login
+from routes.registration import registration
 from routes.profile import profile
 from routes.feed import feed
-
-# Models import (maybe just for dev tests)
-from models.post import Post
 
 
 def setup():
@@ -16,10 +15,12 @@ def setup():
     app = Flask(__name__)
     app.config.from_object(Config)
     # Then, we initialize our database
-    db.init_app(app)
+    database.init_app(app)
     # Finally, we register needed blueprints
     app.register_blueprint(profile, url_prefix='/profile')
     app.register_blueprint(feed, url_prefix='')
+    app.register_blueprint(registration, url_prefix='/registration')
+    app.register_blueprint(login, url_prefix='/login')
 
     # p1 = Post(author='Vincent', description='First post!')
     # p2 = Post(author='Vincent', description='Second post!')
