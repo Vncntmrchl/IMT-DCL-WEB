@@ -1,5 +1,6 @@
 import flask
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, redirect, url_for
+from werkzeug.security import generate_password_hash
 
 from models.User import User
 from database.database import db
@@ -8,16 +9,17 @@ registration = Blueprint('registration', __name__, template_folder='templates')
 
 
 def registration_form_process(form):
-    return flask.render_template("base.html.jinja2") + flask.request.form.get("username", "") + " now registered."
+    return redirect(url_for('login.login_form_function'))
+
 
 
 def add_user_database(form):
     mail = flask.request.form.get("mail", "")
     name = flask.request.form.get("name", "")
     username = flask.request.form.get("username", "")
-    password = hash(flask.request.form.get("password", ""))
-    new_task = User(mail=mail, name=name, username=username, password=password)
-    db.session.add(new_task)
+    password = (flask.request.form.get("password", ""))
+    new_user = User(mail=mail, name=name, username=username, password=generate_password_hash(password, method='sha256'))
+    db.session.add(new_user)
     db.session.commit()
     for user in db.session.query(User).all():
         print(getattr(user, "password"))

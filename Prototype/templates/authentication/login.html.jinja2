@@ -13,7 +13,7 @@
         </div>
 
         <!-- Login Form -->
-        <form>
+        <form action="{{ url_for("login.login_form_function") }}" method="post">
           <input type="text" id="username" class="fadeIn second" name="username" placeholder="login">
           <input type="text" id="password" class="fadeIn third" name="password" placeholder="password">
           <input type="submit" class="fadeIn fourth" value="Log In">
