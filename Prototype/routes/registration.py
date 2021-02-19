@@ -21,8 +21,8 @@ def add_user_database(form):
     new_user = User(mail=mail, name=name, username=username, password=generate_password_hash(password, method='sha256'))
     db.session.add(new_user)
     db.session.commit()
-    for user in db.session.query(User).all():
-        print(getattr(user, "password"))
+    # for user in db.session.query(User).all():
+    #     print(getattr(user, "password"))
 
 
 def delete_all_user_database():
