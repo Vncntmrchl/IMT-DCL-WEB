@@ -1,9 +1,10 @@
 import flask
-from flask import Blueprint, render_template
+import flask_login
+from flask import Blueprint, render_template, flash, redirect, url_for, request
+from flask_login import login_user
+from werkzeug.security import generate_password_hash, check_password_hash
 
 from models.User import User
-from models.post import Post
-from database.database import db
 
 connexion = Blueprint('connexion', __name__, template_folder='templates')
 
@@ -11,11 +12,10 @@ connexion = Blueprint('connexion', __name__, template_folder='templates')
 @connexion.route('/', methods=["GET", "POST"])
 def fonction_formulaire_connexion():
     form_est_valide, errors = formulaire_est_valide(flask.request.form)
-    print(form_est_valide)
     if not form_est_valide:
         return afficher_formulaire_connexion(flask.request.form, errors)
     else:
-        return traitement_formulaire_inscription(flask.request.form)
+        return traitement_formulaire_connexion(flask.request.form)
 
 
 def afficher_formulaire_connexion(form, errors):
@@ -23,35 +23,22 @@ def afficher_formulaire_connexion(form, errors):
 
 
 def formulaire_est_valide(form):
-
     username = flask.request.form.get("username", "")
     password = flask.request.form.get("password", "")
-    passw = hash(password)
-    result = True
-    isIn = False
-    u = None
+    remember = True if request.form.get('remember') else False
     errors = []
-    print(username,"user")
     if username == "":
         errors += ["missing 'username' parameter"]
-        result = False
     if password == "":
         errors += ["missing 'password' parameter"]
-        result = False
-    for user in User.query.all():
-        print(getattr(user, "username"), username)
-        if getattr(user, "username") == username:
-            isIn = True
-            u = user
-    if not isIn:
-        errors += ["Unknown username"]
-        result = False
-    if isIn:
-        if getattr(u, "password") != passw:
-            errors += ["Password doesn't match username"]
-            result = False
-    return result, errors
+    user = User.query.filter_by(username=username).first()
+    if not user or not check_password_hash(user.password, password):
+        flash('Please check your login details and try again.')
+        return False, errors
+    login_user(user, remember=remember)
+    return True, errors
 
 
 def traitement_formulaire_connexion(form):
-    return flask.render_template("base.html.jinja2") + "félicitation " + flask.request.form.get("username", "") + " tu es maintenant connecté"
+
+    return redirect(url_for('profile.profile_index'))

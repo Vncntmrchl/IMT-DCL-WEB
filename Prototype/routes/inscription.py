@@ -1,5 +1,6 @@
 import flask
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, redirect, url_for
+from werkzeug.security import generate_password_hash
 
 from models.User import User
 from models.post import Post
@@ -9,19 +10,19 @@ inscription = Blueprint('inscription', __name__, template_folder='templates')
 
 
 def traitement_formulaire_inscription(form):
-    return flask.render_template("base.html.jinja2") + "félicitation " + flask.request.form.get("username", "") + " pour ton inscription au meilleur projet web"
+    return redirect(url_for('connexion.fonction_formulaire_connexion'))
 
 
 def add_user_database(form):
     mail = flask.request.form.get("mail", "")
     name = flask.request.form.get("name", "")
     username = flask.request.form.get("username", "")
-    password = hash(flask.request.form.get("password", ""))
-    new_task = User(mail=mail, name=name, username=username, password=password)
-    db.session.add(new_task)
+    password = (flask.request.form.get("password", ""))
+    new_user = User(mail=mail, name=name, username=username, password=generate_password_hash(password, method='sha256'))
+    db.session.add(new_user)
     db.session.commit()
     for user in User.query.all():
-        print(getattr(user, "password"))
+        print(getattr(user, "username"))
 
 
 def delete_data_base():
