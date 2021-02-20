@@ -10,3 +10,8 @@ feed = Blueprint('feed', __name__, template_folder='templates')
 def feed_index():
     posts = db.session.query(Post).all()
     return render_template('feed/feed.html.jinja2', posts=posts)
+
+
+@feed.route('/test')
+def navbar_test():
+    return render_template('navigation.html.jinja2')

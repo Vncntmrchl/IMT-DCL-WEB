@@ -34,6 +34,28 @@ nav {
     color: var(--font-color);
 }
 
+.navbar-nav a {
+    font-size: 25px;
+}
+
+.nav-icon {
+    outline: none;
+    color: white;
+}
+
+.logo {
+    height: 45px;
+    width: 45px;
+}
+
+#themeSwitch {
+    font-size: 25px;
+    border: none;
+    background: transparent;
+    color: white;
+    outline: none;
+}
+
 .post {
     width: 25rem;
     margin: 7px;
