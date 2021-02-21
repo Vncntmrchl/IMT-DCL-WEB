@@ -1,4 +1,5 @@
 
+/* Script for theme switching */
 const themeSwitch = document.getElementById('themeSwitch');
 document.documentElement.setAttribute('data-theme', 'light');
 
@@ -10,3 +11,4 @@ themeSwitch.onclick = () => {
         document.documentElement.setAttribute('data-theme', 'light');
   }
 }
+/* Script for theme switching */
