@@ -34,6 +34,16 @@ nav {
     color: var(--font-color);
 }
 
+.page-footer {
+    background: #2d2d2d;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 30px;
+    width: 100%;
+    overflow: hidden;
+}
+
 .navbar-nav a {
     font-size: 25px;
 }
@@ -66,6 +76,17 @@ nav {
 
 .feed {
     padding: 5% 10%;
+}
+
+.submit-button {
+    background: var(--accent-color);
+    border: none;
+}
+
+.error-message {
+    border-radius: 50%;
+    background: orangered;
+    color: white;
 }
 
 

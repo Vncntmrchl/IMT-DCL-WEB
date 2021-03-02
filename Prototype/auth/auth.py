@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, Blueprint
+from flask import render_template, redirect, url_for, Blueprint, flash
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField
 from wtforms.validators import InputRequired, Length
@@ -6,6 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, logout_user
 from models.User import User
 from database.database import db
+
 auth = Blueprint('auth', __name__, template_folder='templates')
 
 
@@ -40,7 +41,9 @@ def register():
         db.session.add(user)
         db.session.commit()
         # We can now redirect the user to the login page
-        return redirect(url_for('login'))
+        return redirect(url_for('auth.login'))
+    else:
+        flash("Rappel : votre nom d'utilisateur doit contenir entre 5 et 12 caractères et votre mot de passe au moins 8 caractères.")
     return render_template('authentication/registration.jinja2', registration_form=registration_form)
 
 
@@ -57,8 +60,12 @@ def login():
                 # If it's the case, the user is logged in and we get him to the feed
                 login_user(user)
                 return redirect(url_for('feed.feed_index'))
+            else:
+                flash("Erreur ! Mot de passe incorrect.")
+        else:
+            flash("Erreur ! Ce nom d'utilisateur n'existe pas.")
         # If there is no such username we redirect the user to the login page
-        return render_template('authentication/login.html.jinja2', form=login_form)
+        return render_template('authentication/login.html.jinja2', login_form=login_form)
     return render_template('authentication/login.html.jinja2', login_form=login_form)
 
 

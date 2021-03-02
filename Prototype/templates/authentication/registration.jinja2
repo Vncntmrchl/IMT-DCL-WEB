@@ -6,17 +6,39 @@
 
 {% block content %}
     <div class="container">
-    <form method="POST" action="{{ url_for('auth.register') }}">
         <h1>Inscription</h1>
-        {{ registration_form.hidden_tag() }}
-        {{ registration_form.email(placeholder='Email') }}
-        {{ registration_form.username(placeholder="Nom d'utilisateur") }}
-        {{ registration_form.password(placeholder='Mot de passe') }}
-        <button type="submit" >Inscription</button>
-    </form>
-    </div>
-    <div class="container">
-    <h2>Vous possédez déjà un compte ? Connectez-vous ici :</h2>
-    <a href="{{ url_for('auth.login') }}"> Connexion</a>
+        <div>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-danger" role="alert">{{ message }}</div>
+                        {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+        <form method="POST" action="{{ url_for('auth.register') }}">
+            {{ registration_form.hidden_tag() }}
+            <div class="form-group row" style="margin: 1em;">
+                <label class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-4">
+                    {{ registration_form.email(placeholder='Email', class='form-control') }}
+                </div>
+            </div>
+            <div class="form-group row" style="margin: 1em;">
+                <label class="col-sm-2 col-form-label">Nom d'utilisateur</label>
+                <div class="col-sm-4">
+                    {{ registration_form.username(placeholder="Nom d'utilisateur", class='form-control') }}
+                </div>
+            </div>
+            <div class="form-group row" style="margin: 1em;">
+                <label class="col-sm-2 col-form-label">Mot de passe</label>
+                <div class="col-sm-4">
+                    {{ registration_form.password(placeholder='Mot de passe', class='form-control') }}
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary submit-button" style="margin: 1em;">Inscription</button>
+        </form>
+        <div style="margin: 1em;">Vous possédez déjà un compte ? Connectez-vous <a href="{{ url_for('auth.login') }}">ici</a>
+        </div>
     </div>
 {% endblock %}
