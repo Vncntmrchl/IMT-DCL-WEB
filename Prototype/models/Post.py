@@ -10,7 +10,7 @@ from datetime import datetime
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)  # Post id, will also be used for unique post url
-    author = db.Column(db.Integer)  # Author id
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # Author id
     date = db.Column(db.Date, default=datetime.now())
     description = db.Column(db.Text)
     hearts = db.Column(db.Integer)  # The number of "likes" of the post
@@ -23,7 +23,7 @@ class Post(db.Model):
     # TODO Add picture to a post
 
     def __init__(self, author, description):
-        self.author = author
+        self.user_id = author
         self.description = description
         self.hearts = 0
         self.current_user_liked_it = False
