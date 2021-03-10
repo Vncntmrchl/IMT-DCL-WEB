@@ -1,0 +1,13 @@
+{% macro post_template(post) %}
+    <div class="card post">
+        <img src="../../static/pictures/98505f7.jpg" class="card-img-top" alt="Classy Pope">
+        <div class="card-body">
+            <blockquote class="blockquote mb-0">
+                <p>{{ post.description }}</p>
+                <button id="{{ post.id }}" class="heart-button"><i
+                        class="bi bi-heart-fill"> {{ post.hearts }} </i></button>
+                <footer class="blockquote-footer">{{ post.author }} | {{ post.date }}</footer>
+            </blockquote>
+        </div>
+    </div>
+{% endmacro %}

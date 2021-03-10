@@ -28,6 +28,12 @@ class Post(db.Model):
         self.hearts = 0
         self.current_user_liked_it = False
 
+    def add_heart(self):
+        # TODO adapt this function with user liked posts list
+        if not self.current_user_liked_it:
+            self.hearts += 1
+            self.current_user_liked_it = True
+
 # class Picture(db.Model, entity.Image):
 #     post_id = db.Column(db.Integer, db.ForeignKey(Post.id), primary_key=True)
 #     post = db.relationship(Post)

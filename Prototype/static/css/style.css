@@ -27,6 +27,7 @@ html[data-theme="dark"] {
 body {
     background: var(--primary-color);
     color: var(--font-color);
+    overflow-y: scroll;
 }
 
 nav {
@@ -36,7 +37,7 @@ nav {
 
 .page-footer {
     background: #2d2d2d;
-    position: absolute;
+    position: relative;
     left: 0;
     bottom: 0;
     height: 30px;

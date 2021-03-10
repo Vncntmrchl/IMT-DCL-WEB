@@ -38,7 +38,8 @@ def setup():
 
     # with app.app_context():
     #     database.db.create_all()
-    #     database.db.session.add(p1, p2)
+    #     database.db.session.add(p1)
+    #     database.db.session.add(p2)
     #     database.db.session.commit()
 
     return app

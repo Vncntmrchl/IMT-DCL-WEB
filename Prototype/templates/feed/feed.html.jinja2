@@ -1,5 +1,5 @@
 {% extends 'base.html.jinja2' %}
-{%  import 'login.html.jinja2' %}
+{% from 'post/post.html.jinja2' import post_template %}
 
 {% block title %}
     <title>Feed</title>
@@ -8,17 +8,7 @@
 {% block content %}
     <div class="d-flex justify-content-sm-center flex-wrap feed">
         {% for post in posts %}
-            <div class="card post">
-                <img src="../../static/pictures/98505f7.jpg" class="card-img-top" alt="Classy Pope">
-                <div class="card-body">
-                    <blockquote class="blockquote mb-0">
-                        <p>{{ post.description }}</p>
-                        <button id="{{ post.id }}" class="heart-button" onclick={{ add_heart(this.attr('id')) }}><i
-                                class="bi bi-heart-fill"> {{ post.hearts }}</i></button>
-                        <footer class="blockquote-footer">{{ post.author }} | {{ post.date }}</footer>
-                    </blockquote>
-                </div>
-            </div>
+            {{ post_template(post) }}
         {% endfor %}
     </div>
 {% endblock %}
