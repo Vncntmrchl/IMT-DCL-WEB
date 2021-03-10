@@ -22,11 +22,11 @@ class Post(db.Model):
 
     # TODO Add picture to a post
 
-    def __init__(self, author, description):
-        self.user_id = author
-        self.description = description
-        self.hearts = 0
-        self.current_user_liked_it = False
+    # def __init__(self, author, description):
+    #     self.user_id = author
+    #     self.description = description
+    #     self.hearts = 0
+    #     self.current_user_liked_it = False
 
     def add_heart(self):
         # TODO adapt this function with user liked posts list
