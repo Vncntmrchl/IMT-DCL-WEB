@@ -1,9 +1,12 @@
 from database.database import db
 from datetime import datetime
+from flask import Blueprint, render_template, jsonify
+from flask_login import login_required
+
+post = Blueprint('post', __name__, template_folder='templates')
 
 
 # TODO add "liked posts list" to User model and check if the user already liked it or not
-
 
 # from sqlalchemy_imageattach import entity
 
@@ -28,13 +31,24 @@ class Post(db.Model):
         self.hearts = 0
         self.current_user_liked_it = False
 
-    def add_heart(self):
-        # TODO adapt this function with user liked posts list
-        if not self.current_user_liked_it:
-            self.hearts += 1
-            self.current_user_liked_it = True
-
 # class Picture(db.Model, entity.Image):
 #     post_id = db.Column(db.Integer, db.ForeignKey(Post.id), primary_key=True)
 #     post = db.relationship(Post)
 #     __tablename__ = 'post_picture'
+
+
+@post.route('/heart/<int:post_id>', methods=['POST'])
+@login_required
+def heart(post_id):
+    current_post = db.session.query(Post).get(int(post_id))
+    # If the current user has never liked the post, it adds a heart
+    # otherwise, it removes it (can't like several time the same post)
+    if not current_post.current_user_liked_it:
+        current_post.hearts += 1
+        current_post.current_user_liked_it = not current_post.current_user_liked_it
+    else:
+        current_post.hearts -= 1
+        current_post.current_user_liked_it = not current_post.current_user_liked_it
+    db.session.commit()
+    post_card_id = 'post_card_' + str(current_post.id)
+    return jsonify('', render_template('post/post.html.jinja2', post=current_post, post_card_id=post_card_id))

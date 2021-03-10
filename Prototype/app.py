@@ -6,7 +6,7 @@ from flask_login import LoginManager
 
 # Models imports
 from models.User import User
-from models.Post import Post
+from models.Post import post
 
 # Blueprints imports
 from auth.auth import auth
@@ -26,20 +26,18 @@ def setup():
 
     @login_manager.user_loader
     def load_user(user_id):
-        return User.query.get(int(user_id))
+        return database.db.session.query(User).get(int(user_id))
 
     # Finally, we register needed blueprints
     app.register_blueprint(auth, url_prefix='/auth')
     app.register_blueprint(feed, url_prefix='')
     app.register_blueprint(profile, url_prefix='/profile')
-
-    p1 = Post(author='Vincent', description='First post!')
-    p2 = Post(author='Vincent', description='Second post!')
+    app.register_blueprint(post, url_prefix='/post')
 
     # with app.app_context():
     #     database.db.create_all()
-    #     database.db.session.add(p1)
-    #     database.db.session.add(p2)
+    #     database.db.session.add(Post(author='Vincent', description='First post!'))
+    #     database.db.session.add(Post(author='Vincent', description='Second post!'))
     #     database.db.session.commit()
 
     return app

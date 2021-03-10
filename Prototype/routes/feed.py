@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, jsonify
+from flask import Blueprint, render_template
 from models.Post import Post
 from database.database import db
 from flask_login import login_required
