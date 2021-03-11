@@ -3,7 +3,7 @@ from werkzeug.security import generate_password_hash
 
 from config import Config
 from database import database
-from flask_login import LoginManager
+from flask_login import LoginManager, current_user
 
 # Models imports
 from database.database import db
