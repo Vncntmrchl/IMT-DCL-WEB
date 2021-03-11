@@ -2,18 +2,17 @@ from database.database import db
 from datetime import datetime
 from flask import Blueprint, render_template, jsonify
 from flask_login import login_required
+# from sqlalchemy_imageattach import entity
 
 post = Blueprint('post', __name__, template_folder='templates')
 
 
 # TODO add "liked posts list" to User model and check if the user already liked it or not
 
-# from sqlalchemy_imageattach import entity
-
-
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)  # Post id, will also be used for unique post url
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # Author id
+    username = db.Column(db.String)  # Easier to display username this way (avoid circular import)
     date = db.Column(db.Date, default=datetime.now())
     description = db.Column(db.Text)
     hearts = db.Column(db.Integer)  # The number of "likes" of the post
@@ -25,11 +24,12 @@ class Post(db.Model):
 
     # TODO Add picture to a post
 
-    # def __init__(self, author, description):
-    #     self.user_id = author
-    #     self.description = description
-    #     self.hearts = 0
-    #     self.current_user_liked_it = False
+    def __init__(self, user_id, username, description):
+        self.user_id = user_id
+        self.username = username
+        self.description = description
+        self.hearts = 0
+        self.current_user_liked_it = False
 
 # class Picture(db.Model, entity.Image):
 #     post_id = db.Column(db.Integer, db.ForeignKey(Post.id), primary_key=True)

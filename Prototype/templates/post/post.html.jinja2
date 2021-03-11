@@ -5,9 +5,13 @@
             <blockquote class="blockquote mb-0">
                 <div id="post_body">
                     <p>{{ post.description }}</p>
-                    <button onclick="heart_post({{ post.id }})" class="heart-button"><i
-                            class="bi bi-heart-fill"> {{ post.hearts }} </i></button>
-                    <footer class="blockquote-footer">{{ post.author }} | {{ post.date }}</footer>
+                    <footer class="blockquote-footer">
+                        <div class="d-flex justify-content-sm-between flex-wrap">
+                            <p>{{ post.username }} | {{ post.date }}</p>
+                            <button onclick="heart_post({{ post.id }})" class="heart-button"><i
+                                    class="bi bi-heart-fill"> {{ post.hearts }} </i></button>
+                        </div>
+                    </footer>
                 </div>
             </blockquote>
         </div>
