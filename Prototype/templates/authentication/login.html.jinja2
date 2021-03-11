@@ -1,30 +1,39 @@
 {% extends 'base.html.jinja2' %}
 
+{% block title %}
+    <title>Connexion</title>
+{% endblock %}
+
 {% block content %}
-    <link type="text/css" rel="stylesheet" href="/static/css/styleconnection.css">
-
-    <div class="wrapper fadeInDown">
-      <div id="formContent">
-        <!-- Tabs Titles -->
-
-        <!-- Icon -->
-        <div class="fadeIn first">
-          <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="Connexion " />
+    <div class="container">
+        <h1>Connexion</h1>
+        <div>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-danger" role="alert">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
         </div>
-
-        <!-- Login Form -->
-        <form action="{{ url_for("login.login_form_function") }}" method="post">
-          <input type="text" id="username" class="fadeIn second" name="username" placeholder="login">
-          <input type="text" id="password" class="fadeIn third" name="password" placeholder="password">
-          <input type="submit" class="fadeIn fourth" value="Log In">
+        <form method="POST" action="{{ url_for('auth.login') }}">
+            {{ login_form.hidden_tag() }}
+            <div class="form-group row" style="margin: 1em;">
+                <label class="col-sm-2 col-form-label">Nom d'utilisateur</label>
+                <div class="col-sm-4">
+                    {{ login_form.username(placeholder="Nom d'utilisateur", class='form-control') }}
+                </div>
+            </div>
+            <div class="form-group row" style="margin: 1em;">
+                <label class="col-sm-2 col-form-label">Mot de passe</label>
+                <div class="col-sm-4">
+                    {{ login_form.password(placeholder='Mot de passe', class='form-control') }}
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary submit-button" style="margin: 1em;">Connexion</button>
         </form>
-
-        <!-- Remind Passowrd -->
-        <div id="formFooter">
-          <a class="underlineHover" href="#">Forgot Password?</a>
+        <div style="margin: 1em;">Vous ne possédez pas de compte ? Inscrivez-vous <a
+                href="{{ url_for('auth.register') }}">ici</a>
         </div>
-
-      </div>
     </div>
-
 {% endblock %}

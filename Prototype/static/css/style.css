@@ -27,11 +27,44 @@ html[data-theme="dark"] {
 body {
     background: var(--primary-color);
     color: var(--font-color);
+    overflow-y: scroll;
 }
 
 nav {
     background: var(--accent-color);
     color: var(--font-color);
+}
+
+.page-footer {
+    background: #2d2d2d;
+    position: relative;
+    left: 0;
+    bottom: 0;
+    height: 30px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.navbar-nav a {
+    font-size: 25px;
+}
+
+.nav-icon {
+    outline: none;
+    color: white;
+}
+
+.logo {
+    height: 45px;
+    width: 45px;
+}
+
+#themeSwitch {
+    font-size: 25px;
+    border: none;
+    background: transparent;
+    color: white;
+    outline: none;
 }
 
 .post {
@@ -44,6 +77,17 @@ nav {
 
 .feed {
     padding: 5% 10%;
+}
+
+.submit-button {
+    background: var(--accent-color);
+    border: none;
+}
+
+.error-message {
+    border-radius: 50%;
+    background: orangered;
+    color: white;
 }
 
 

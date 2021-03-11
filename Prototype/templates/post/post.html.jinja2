@@ -1,0 +1,15 @@
+<div id="{{ post_card_id }}">
+    <div class="card post">
+        <img src="../../static/pictures/98505f7.jpg" class="card-img-top" alt="Classy Pope">
+        <div class="card-body">
+            <blockquote class="blockquote mb-0">
+                <div id="post_body">
+                    <p>{{ post.description }}</p>
+                    <button onclick="heart_post({{ post.id }})" class="heart-button"><i
+                            class="bi bi-heart-fill"> {{ post.hearts }} </i></button>
+                    <footer class="blockquote-footer">{{ post.author }} | {{ post.date }}</footer>
+                </div>
+            </blockquote>
+        </div>
+    </div>
+</div>

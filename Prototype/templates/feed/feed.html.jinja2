@@ -1,5 +1,5 @@
-
 {% extends 'base.html.jinja2' %}
+{#{% from 'post/post.html.jinja2' import post_template %}#}
 
 {% block title %}
     <title>Feed</title>
@@ -7,16 +7,25 @@
 
 {% block content %}
     <div class="d-flex justify-content-sm-center flex-wrap feed">
-    {% for post in posts %}
-        <div class="card post">
-            <img src="../../static/pictures/98505f7.jpg" class="card-img-top" alt="Classy Pope">
-            <div class="card-body">
-                <blockquote class="blockquote mb-0">
-                    <p>{{ post.description }}</p>
-                    <footer class="blockquote-footer">{{ post.description }} | {{ post.date }}</footer>
-                </blockquote>
-            </div>
-        </div>
-    {%  endfor %}
+        {% for post in posts %}
+            {# Here we create an id for the post card (different from the post id), ~ is used for concatenation #}
+            {% with post_card_id = 'post_card_'~post.id %}
+                <div id="{{ post_card_id }}">
+                    <div class="card post">
+                        <img src="../../static/pictures/98505f7.jpg" class="card-img-top" alt="Classy Pope">
+                        <div class="card-body">
+                            <blockquote class="blockquote mb-0">
+                                <div id="post_body">
+                                    <p>{{ post.description }}</p>
+                                    <button onclick="heart_post({{ post.id }})" class="heart-button"><i
+                                            class="bi bi-heart-fill"> {{ post.hearts }} </i></button>
+                                    <footer class="blockquote-footer">{{ post.author }} | {{ post.date }}</footer>
+                                </div>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            {% endwith %}
+        {% endfor %}
     </div>
 {% endblock %}
