@@ -1,8 +1,10 @@
+from flask import jsonify
+
 from database.database import db
-from flask_login import UserMixin
+from flask_login import UserMixin, login_required, current_user
 
 from models.Followers import followers
-from models.Post import Post
+from models.Post import Post, post
 
 
 class User(db.Model, UserMixin):
@@ -39,3 +41,6 @@ class User(db.Model, UserMixin):
     def followed_posts(self):
         return Post.query.join(followers, (followers.c.followed_id == Post.user_id)).filter(
             followers.c.follower_id == self.id).order_by(Post.date.desc())
+
+
+

@@ -12,6 +12,7 @@ from models.Post import Post, post
 
 # Blueprints imports
 from auth.auth import auth
+from routes.follow import follow
 from routes.profile import profile
 from routes.feed import feed
 
@@ -35,6 +36,7 @@ def setup():
     app.register_blueprint(feed, url_prefix='')
     app.register_blueprint(profile, url_prefix='/profile')
     app.register_blueprint(post, url_prefix='/post')
+    app.register_blueprint(follow, url_prefix='/follow')
 
     # with app.app_context():
     #     database.db.create_all()
@@ -43,9 +45,8 @@ def setup():
     #     database.db.session.commit()
 
     with app.app_context():
-
         test = User(email='testtest@example.com', username='testtest',
-                  password=generate_password_hash('testtest', method='sha256'))
+                    password=generate_password_hash('testtest', method='sha256'))
         u1 = User(email='john@example.com', username='john',
                   password=generate_password_hash('petitkebab', method='sha256'))
         u2 = User(email='vincent@example.com', username='vincent',
@@ -64,22 +65,22 @@ def setup():
         p2 = Post(user_id=u2.get_id(), username=u2.username, description='Second post!')
         p3 = Post(user_id=u3.get_id(), username=u3.username, description='vive le python')
         p4 = Post(user_id=u3.get_id(), username=u3.username, description='cqfd')
-        u1.follow(u1)
+        u3.follow(u2)
         u1.follow(u2)
         u2.follow(u2)
-        u2.follow(u3)
+        u3.follow(u3)
         db.session.add(p1)
         db.session.add(p2)
         db.session.add(p3)
         db.session.add(p4)
-        print(u1.followed_posts().all())
-        print(u2.followed_posts().all())
-        print(u1.is_following(u2))
+        # print(u1.followed_posts().all())
+        # print(u2.followed_posts().all())
+        # print(u1.is_following(u2))
         u1.follow(u2)
-        print(u1.is_following(u2))
-        print(u1.followed.count(), u1.followed.first().username, u2.followers.count(), u2.followers.first().username)
-        u1.unfollow(u2)
-        print(u1.is_following(u2))
+        # print(u1.is_following(u2))
+        # print(u1.followed.count(), u1.followed.first().username, u2.followers.count(), u2.followers.first().username)
+        # u1.unfollow(u2)
+        # print(u1.is_following(u2))
         db.session.commit()
 
         # for user in User.query.all():

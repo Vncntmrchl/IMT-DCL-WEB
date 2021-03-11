@@ -29,7 +29,9 @@
             <a class="nav-item nav-link" href="#"><i class="nav-icon bi bi-heart"></i></a>
             <a class="nav-item nav-link" href="{{ url_for('profile.profile_index') }}"><i
                     class=" nav-icon bi bi-person"></i></a>
+             <a class="nav-item nav-link" href="{{ url_for('follow.follow_index') }}"><i style="color:beige "  class="bi bi-segmented-nav"></i></a>
             <a class="nav-item nav-link" href="{{ url_for('auth.logout') }}"><i style="color:beige "  class="bi bi-arrow-down-right-square"></i></a>
+
         </div>
         <p>Bonjour {{ current_user.username }}</p>
         <button id="themeSwitch"><i class="bi bi-brightness-high"></i></button>
@@ -69,6 +71,17 @@
                 // We use the post card id again, to reload this one only
                 let post_card_id = 'post_card_'+post_id;
                 $('#'+post_card_id).replaceWith(updated_post);
+            }
+        })
+    }
+
+    function follow_user(user_id) {
+        $.ajax({
+            url: '/follow/' + user_id,
+            type: 'POST',
+            dataType: 'json',
+            success: function (updated_user) {
+                console.log("wowowo")
             }
         })
     }

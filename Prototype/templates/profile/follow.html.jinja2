@@ -1,0 +1,25 @@
+{% extends 'base.html.jinja2' %}
+
+{% block title %}
+    <title>followtest</title>
+
+{% endblock %}
+
+
+{% block content %}
+    <div class="list-group">
+        {% for user in users %}
+            <div class="card-body">
+            <div class="d-flex justify-content-sm-between flex-wrap">
+                <p>{{ user.username }}</p>
+                <button onclick="follow_user({{ user.id }})" type="button" class="btn btn-primary"></button>
+            </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+<script>
+    /* Script for "hearting" a post */
+
+</script>
