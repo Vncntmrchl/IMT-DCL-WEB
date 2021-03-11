@@ -29,8 +29,10 @@
             <a class="nav-item nav-link" href="#"><i class="nav-icon bi bi-heart"></i></a>
             <a class="nav-item nav-link" href="{{ url_for('profile.profile_index') }}"><i
                     class=" nav-icon bi bi-person"></i></a>
-             <a class="nav-item nav-link" href="{{ url_for('follow.follow_index') }}"><i style="color:beige "  class="bi bi-segmented-nav"></i></a>
-            <a class="nav-item nav-link" href="{{ url_for('auth.logout') }}"><i style="color:beige "  class="bi bi-arrow-down-right-square"></i></a>
+            <a class="nav-item nav-link" href="{{ url_for('follow.follow_index') }}"><i style="color:beige "
+                                                                                        class="bi bi-segmented-nav"></i></a>
+            <a class="nav-item nav-link" href="{{ url_for('auth.logout') }}"><i style="color:beige "
+                                                                                class="bi bi-arrow-down-right-square"></i></a>
 
         </div>
         <p>Bonjour {{ current_user.username }}</p>
@@ -43,11 +45,6 @@
 {% endblock %}
 
 
-<footer class="page-footer text-center text-white">
-    <div>Icons are from the Bootstrap Icons library or made by <a href="https://www.freepik.com"
-                                                                  title="Freepik">Freepik</a> from <a
-            href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-</footer>
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
@@ -69,8 +66,8 @@
             dataType: 'json',
             success: function (updated_post) {
                 // We use the post card id again, to reload this one only
-                let post_card_id = 'post_card_'+post_id;
-                $('#'+post_card_id).replaceWith(updated_post);
+                let post_card_id = 'post_card_' + post_id;
+                $('#' + post_card_id).replaceWith(updated_post);
             }
         })
     }
@@ -82,6 +79,25 @@
             dataType: 'json',
             success: function (updated_user) {
                 console.log("wowowo")
+            }
+        })
+    }
+
+    function add_post(user_id,username) {
+        $.ajax({
+            url: '/create_post/',
+            type: 'POST',
+            dataType: 'json',
+            contentType:"application/json",
+            data:JSON.stringify({
+                "description": $("#description").val(),
+                "id":user_id,
+                "username":username,
+            })
+            ,
+            success: function () {
+                console.log("azeopjzapoi")
+                window.location.href = "/profile";
             }
         })
     }

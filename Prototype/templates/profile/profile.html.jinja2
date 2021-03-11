@@ -1,12 +1,41 @@
-
 {% extends 'base.html.jinja2' %}
 
-{% block title  %}
-<title>Profil</title>
+{% block title %}
+    <title>Profil</title>
 
 {% endblock %}
 
 
 {% block content %}
-<h1>Profile de {{ current_user.username  }}</h1>
+    <div>
+        <h1>Profil de {{ current_user.username }}</h1>
+        <a type="button" href="{{ url_for('create_post.create_post_index') }}" class="btn btn-outline-secondary" style="margin-left: 680px">Ajouter un post</a>
+    </div>
+    <div class="d-flex justify-content-sm-center flex-wrap feed">
+        <h2>Vos posts</h2>
+        {% for post in posts %}
+            {# Here we create an id for the post card (different from the post id), ~ is used for concatenation #}
+            {% with post_card_id = 'post_card_'~post.id %}
+                <div id="{{ post_card_id }}">
+                    <div class="card post">
+                        <img src="../../static/pictures/98505f7.jpg" class="card-img-top" alt="Classy Pope">
+                        <div class="card-body">
+                            <blockquote class="blockquote mb-0">
+                                <div id="post_body">
+                                    <p>{{ post.description }}</p>
+                                    <footer class="blockquote-footer">
+                                        <div class="d-flex justify-content-sm-between flex-wrap">
+                                            <p>{{ post.username }} | {{ post.date }}</p>
+                                            <button onclick="heart_post({{ post.id }})" class="heart-button"><i
+                                                    class="bi bi-heart-fill"> {{ post.hearts }} </i></button>
+                                        </div>
+                                    </footer>
+                                </div>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            {% endwith %}
+        {% endfor %}
+    </div>
 {% endblock %}

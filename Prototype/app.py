@@ -12,6 +12,7 @@ from models.Post import Post, post
 
 # Blueprints imports
 from auth.auth import auth
+from routes.create_post import create_post
 from routes.follow import follow
 from routes.profile import profile
 from routes.feed import feed
@@ -37,6 +38,7 @@ def setup():
     app.register_blueprint(profile, url_prefix='/profile')
     app.register_blueprint(post, url_prefix='/post')
     app.register_blueprint(follow, url_prefix='/follow')
+    app.register_blueprint(create_post, url_prefix='/create_post')
 
     # with app.app_context():
     #     database.db.create_all()

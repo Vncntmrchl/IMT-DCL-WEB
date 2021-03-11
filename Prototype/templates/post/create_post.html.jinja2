@@ -1,0 +1,25 @@
+{% extends 'base.html.jinja2' %}
+
+{% block title %}
+    <title>sexion d'assault</title>
+
+{% endblock %}
+
+
+{% block content %}
+    <div>
+        <h1>Création de post</h1>
+        <form>
+            <div class="form-group">
+                <label >Description</label>
+                <input type="text" class="form-control" id="description" aria-describedby="description"
+                       placeholder="Enter description">
+            </div>
+{#            <div class="form-group">#}
+{#                <label for="exampleFormControlFile1">Photo</label>#}
+{#                <input type="file" class="form-control-file" id="exampleFormControlFile1">#}
+{#            </div>#}
+            <button onclick="add_post({{user.id}},'{{user.username}}')" type="button" class="btn btn-primary">Créer le post</button>
+        </form>
+    </div>
+{% endblock %}
