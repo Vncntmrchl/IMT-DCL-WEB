@@ -63,7 +63,7 @@ def setup():
         p1 = Post(user_id=u1.get_id(), username=u1.username, description='First post!')
         p2 = Post(user_id=u2.get_id(), username=u2.username, description='Second post!')
         p3 = Post(user_id=u3.get_id(), username=u3.username, description='vive le python')
-        p4 = Post(user_id=u3.get_id(), username=u3.username, description='trop hâte de donner mon salaire à vincent mon maitre')
+        p4 = Post(user_id=u3.get_id(), username=u3.username, description='cqfd')
         u1.follow(u1)
         u1.follow(u2)
         u2.follow(u2)
