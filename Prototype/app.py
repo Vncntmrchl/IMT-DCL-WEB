@@ -3,7 +3,7 @@ from werkzeug.security import generate_password_hash
 
 from config import Config
 from database import database
-from flask_login import LoginManager, current_user
+from flask_login import LoginManager
 
 # Models imports
 from database.database import db
@@ -40,12 +40,6 @@ def setup():
     app.register_blueprint(follow, url_prefix='/follow')
     app.register_blueprint(create_post, url_prefix='/create_post')
 
-    # with app.app_context():
-    #     database.db.create_all()
-    #     database.db.session.add(Post(1, description='First post!'))
-    #     database.db.session.add(Post(2, description='Second post!'))
-    #     database.db.session.commit()
-
     with app.app_context():
         test = User(email='testtest@example.com', username='testtest',
                     password=generate_password_hash('testtest', method='sha256'))
@@ -56,12 +50,7 @@ def setup():
         u3 = User(email='samir@example.com', username='samir',
                   password=generate_password_hash('samirlemeilleur', method='sha256'))
 
-        for user in User.query.all():
-            print(getattr(user, "username"))
-        db.session.add(test)
-        db.session.add(u1)
-        db.session.add(u2)
-        db.session.add(u3)
+        db.session.add_all([test, u1, u2, u3])
         db.session.commit()
         p1 = Post(user_id=u1.get_id(), username=u1.username, description='First post!')
         p2 = Post(user_id=u2.get_id(), username=u2.username, description='Second post!')
@@ -71,18 +60,8 @@ def setup():
         u1.follow(u2)
         u2.follow(u2)
         u3.follow(u3)
-        db.session.add(p1)
-        db.session.add(p2)
-        db.session.add(p3)
-        db.session.add(p4)
-        # print(u1.followed_posts().all())
-        # print(u2.followed_posts().all())
-        # print(u1.is_following(u2))
+        db.session.add_all([p1, p2, p3, p4])
         u1.follow(u2)
-        # print(u1.is_following(u2))
-        # print(u1.followed.count(), u1.followed.first().username, u2.followers.count(), u2.followers.first().username)
-        # u1.unfollow(u2)
-        # print(u1.is_following(u2))
         db.session.commit()
 
         # for user in User.query.all():

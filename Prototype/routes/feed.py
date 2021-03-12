@@ -1,6 +1,4 @@
 from flask import Blueprint, render_template
-from models.Post import Post
-from database.database import db
 from flask_login import login_required, current_user
 
 feed = Blueprint('feed', __name__, template_folder='templates')
@@ -10,5 +8,4 @@ feed = Blueprint('feed', __name__, template_folder='templates')
 @login_required
 def feed_index():
     posts = current_user.followed_posts().all()
-    print(posts)
     return render_template('feed/feed.html.jinja2', posts=posts)

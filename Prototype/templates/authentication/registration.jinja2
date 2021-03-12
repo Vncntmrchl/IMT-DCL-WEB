@@ -8,6 +8,7 @@
     <div class="container">
         <h1>Inscription</h1>
         <div>
+            {# To display guidance messages #}
             {% with messages = get_flashed_messages() %}
                 {% if messages %}
                         {% for message in messages %}
@@ -17,6 +18,7 @@
             {% endwith %}
         </div>
         <form method="POST" action="{{ url_for('auth.register') }}">
+            {# Hidden tag used for CSRF protection #}
             {{ registration_form.hidden_tag() }}
             <div class="form-group row" style="margin: 1em;">
                 <label class="col-sm-2 col-form-label">Email</label>

@@ -17,7 +17,7 @@ class RegistrationForm(FlaskForm):
                         validators=[InputRequired(), Length(max=25)])
     username = StringField("Nom d'utilisateur", validators=[InputRequired(), Length(min=5, max=12)])
     password = PasswordField('Mot de passe', validators=[InputRequired(), Length(min=8, max=100)])
-    #TODO Check valid email
+    # TODO Check valid email
 
 
 class LoginForm(FlaskForm):
@@ -43,7 +43,10 @@ def register():
         # We can now redirect the user to the login page
         return redirect(url_for('auth.login'))
     else:
-        flash("Rappel : votre nom d'utilisateur doit contenir entre 5 et 12 caractères et votre mot de passe au moins 8 caractères.")
+        flash(
+            "Rappel : votre nom d'utilisateur doit contenir entre 5 et 12 caractères et votre mot de passe au moins 8 "
+            "caractères.")
+    # Form given as an argument so that if the form is not valid, all input data won't be reset
     return render_template('authentication/registration.jinja2', registration_form=registration_form)
 
 
@@ -53,7 +56,7 @@ def login():
     # If the user validates the form
     if login_form.validate_on_submit():
         # Usernames are unique so if we find a match we can process the form
-        user = User.query.filter_by(username=login_form.username.data).first()
+        user = db.session.query(User).filter_by(username=login_form.username.data).first()
         if user:
             # We check if the given password is correct
             if check_password_hash(user.password, login_form.password.data):
@@ -65,7 +68,9 @@ def login():
         else:
             flash("Erreur ! Ce nom d'utilisateur n'existe pas.")
         # If there is no such username we redirect the user to the login page
+        # Form given as an argument so that if the form is not valid, all input data won't be reset
         return render_template('authentication/login.html.jinja2', login_form=login_form)
+    # Form given as an argument so that if the form is not valid, all input data won't be reset
     return render_template('authentication/login.html.jinja2', login_form=login_form)
 
 

@@ -17,7 +17,6 @@ def create_post_index():
 @login_required
 def add_post():
     data = request.json
-    print(data)
     post = Post(user_id=data["id"], username=data["username"], description=data["description"])
     db.session.add(post)
     db.session.commit()

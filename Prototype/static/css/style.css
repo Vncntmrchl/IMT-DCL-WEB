@@ -64,7 +64,6 @@ nav {
     border: none;
     background: transparent;
     color: white;
-    outline: none;
 }
 
 .post {
@@ -91,11 +90,11 @@ nav {
 }
 
 .heart-button {
-
+    border: none;
+    background: transparent;
 }
 
-/*a
-a:visited { ... }
-a:focus { ... }
-a:hover { ... }
-a:active { ... }*/
+/* To prevent ugly outlines */
+*:focus {
+    outline: none !important;
+}

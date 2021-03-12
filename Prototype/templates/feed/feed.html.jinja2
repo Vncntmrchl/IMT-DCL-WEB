@@ -1,5 +1,4 @@
 {% extends 'base.html.jinja2' %}
-{#{% from 'post/post.html.jinja2' import post_template %}#}
 
 {% block title %}
     <title>Feed</title>
@@ -9,6 +8,7 @@
     <div class="d-flex justify-content-sm-center flex-wrap feed">
         {% for post in posts %}
             {# Here we create an id for the post card (different from the post id), ~ is used for concatenation #}
+            {# It will help us update this card, and only this card, when we "like" the post for example #}
             {% with post_card_id = 'post_card_'~post.id %}
                 <div id="{{ post_card_id }}">
                     <div class="card post">
@@ -20,7 +20,10 @@
                                     <footer class="blockquote-footer">
                                         <div class="d-flex justify-content-sm-between flex-wrap">
                                             <p>{{ post.username }} | {{ post.date }}</p>
-                                            <button onclick="heart_post({{ post.id }})" class="heart-button"><i
+                                            {# We add an unique id to the button to animate it #}
+                                            <button id="{{ 'button'~post_card_id }}" onclick="heart_post({{ post.id }})"
+                                                    class="heart-button" {% if post.current_user_liked_it %}
+                                                    style="color: indianred" {% endif %}><i
                                                     class="bi bi-heart-fill"> {{ post.hearts }} </i></button>
                                         </div>
                                     </footer>

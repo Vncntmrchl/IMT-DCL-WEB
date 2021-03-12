@@ -1,15 +1,12 @@
-from flask import jsonify
-
 from database.database import db
-from flask_login import UserMixin, login_required, current_user
-
+from flask_login import UserMixin
 from models.Followers import followers
-from models.Post import Post, post
+from models.Post import Post
 
 
 class User(db.Model, UserMixin):
     # db.Model is necessary to store data in the database
-    # UserMixin is here to use the model for login and sessions
+    # UserMixin is here to use a standard model for login and sessions
     # email and username must be unique and have a maximum length
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(25), unique=True)
@@ -36,11 +33,10 @@ class User(db.Model, UserMixin):
             return self
 
     def is_following(self, user):
+        # TODO Correct the filter unresolved attribute reference
         return self.followed.filter(followers.c.followed_id == user.id).count() > 0
 
     def followed_posts(self):
-        return Post.query.join(followers, (followers.c.followed_id == Post.user_id)).filter(
+        # To get the list of all posts made by people the current user follows
+        return db.session.query(Post).join(followers, (followers.c.followed_id == Post.user_id)).filter(
             followers.c.follower_id == self.id).order_by(Post.date.desc())
-
-
-

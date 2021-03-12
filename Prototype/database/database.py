@@ -7,7 +7,7 @@ db = SQLAlchemy()
 
 
 # We use this method to initialize the database with the app
-# and all the necessary models
+# and all the necessary models (we start by "resetting" the database to clean it)
 def init_app(app):
     with app.app_context():
         db.init_app(app)

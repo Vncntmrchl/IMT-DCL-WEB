@@ -2,7 +2,6 @@ from database.database import db
 from datetime import datetime
 from flask import Blueprint, render_template, jsonify
 from flask_login import login_required
-# from sqlalchemy_imageattach import entity
 
 post = Blueprint('post', __name__, template_folder='templates')
 
@@ -13,14 +12,14 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)  # Post id, will also be used for unique post url
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # Author id
     username = db.Column(db.String)  # Easier to display username this way (avoid circular import)
+    image_path = db.Column(
+        db.String)  # We will use the path to the image folder as we don't have a dedicated server to store images
+    # for this project
     date = db.Column(db.Date, default=datetime.now())
     description = db.Column(db.Text)
     hearts = db.Column(db.Integer)  # The number of "likes" of the post
     current_user_liked_it = db.Column(
         db.Boolean)  # To know if the current user liked this post or not (no multiple likes)
-
-    # picture = entity.image_attachment('Picture')
-    # __tablename__ = 'post'
 
     # TODO Add picture to a post
 
@@ -31,18 +30,14 @@ class Post(db.Model):
         self.hearts = 0
         self.current_user_liked_it = False
 
-# class Picture(db.Model, entity.Image):
-#     post_id = db.Column(db.Integer, db.ForeignKey(Post.id), primary_key=True)
-#     post = db.relationship(Post)
-#     __tablename__ = 'post_picture'
 
-
+# We give the post id as an argument in the url to select the right post
 @post.route('/heart/<int:post_id>', methods=['POST'])
 @login_required
 def heart(post_id):
     current_post = db.session.query(Post).get(int(post_id))
     # If the current user has never liked the post, it adds a heart
-    # otherwise, it removes it (can't like several time the same post)
+    # otherwise, it removes it (can't like several times the same post)
     if not current_post.current_user_liked_it:
         current_post.hearts += 1
         current_post.current_user_liked_it = not current_post.current_user_liked_it
@@ -50,5 +45,6 @@ def heart(post_id):
         current_post.hearts -= 1
         current_post.current_user_liked_it = not current_post.current_user_liked_it
     db.session.commit()
+    # This string is for the html template that will need a standardized id for the "heart" button
     post_card_id = 'post_card_' + str(current_post.id)
     return jsonify('', render_template('post/post.html.jinja2', post=current_post, post_card_id=post_card_id))
