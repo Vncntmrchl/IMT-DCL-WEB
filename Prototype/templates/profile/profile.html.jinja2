@@ -26,6 +26,7 @@
                                     <footer class="blockquote-footer">
                                         <div class="d-flex justify-content-sm-between flex-wrap">
                                             <p>{{ post.username }} | {{ post.date }}</p>
+                                            <button onclick="del_post({{ post.id }})" type="button" class="btn-close"> </button>
                                             <button onclick="heart_post({{ post.id }})" class="heart-button"><i
                                                     class="bi bi-heart-fill"> {{ post.hearts }} </i></button>
                                         </div>

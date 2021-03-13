@@ -22,3 +22,12 @@ def add_post():
     db.session.add(post)
     db.session.commit()
     return jsonify('', render_template('profile/profile.html.jinja2'))
+
+
+@create_post.route('/del_post', methods=['DELETE'])
+@login_required
+def del_post():
+    post_id = request.json["id"]
+    db.session.query(Post).filter(Post.id == post_id).delete()
+    db.session.commit()
+    return jsonify('', render_template('profile/profile.html.jinja2'))

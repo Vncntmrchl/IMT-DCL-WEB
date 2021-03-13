@@ -83,23 +83,41 @@
         })
     }
 
-    function add_post(user_id,username) {
+    function add_post(user_id, username) {
         $.ajax({
             url: '/create_post/',
             type: 'POST',
             dataType: 'json',
-            contentType:"application/json",
-            data:JSON.stringify({
+            contentType: "application/json",
+            data: JSON.stringify({
                 "description": $("#description").val(),
-                "id":user_id,
-                "username":username,
+                "id": user_id,
+                "username": username,
             })
             ,
             success: function () {
-                console.log("azeopjzapoi")
                 window.location.href = "/profile";
             }
         })
+    }
+
+    function del_post(post_id) {
+        if (confirm("Voulez-vous vraiment supprimer ce post")) {
+            $.ajax({
+                url: '/create_post/del_post',
+                type: 'DELETE',
+                dataType: 'json',
+                contentType: "application/json",
+                data: JSON.stringify({
+                    "id": post_id,
+                }),
+                success: function () {
+                    window.location.href = "/profile";
+                }
+            })
+
+        }
+
     }
 </script>
 
