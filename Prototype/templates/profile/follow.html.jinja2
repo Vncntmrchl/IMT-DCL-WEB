@@ -8,9 +8,14 @@
 
 
 {% block content %}
-    <div class="list-group">
-        {% for user in users %}
-            {{ user_follow_tile(user, current_user) }}
-        {% endfor %}
+    <h1 class="section-title"> Les utilisateurs de Protogram </h1>
+    <div class="container" style="max-width: 35rem">
+        <ul class="list-group list-group-flush">
+            {% for user in users %}
+                <li class="list-group-item follow-tile" style="margin: 1rem">
+                    {{ user_follow_tile(user, current_user) }}
+                </li>
+            {% endfor %}
+        </ul>
     </div>
 {% endblock %}

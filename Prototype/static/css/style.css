@@ -75,7 +75,7 @@ nav {
 }
 
 .feed {
-    padding: 5% 10%;
+    padding: 0 10%;
 }
 
 .submit-button {
@@ -92,6 +92,7 @@ nav {
 .heart-button {
     border: none;
     background: transparent;
+    color: var(--font-color)
 }
 
 /* To prevent ugly outlines */
@@ -102,4 +103,28 @@ nav {
 .image-preview {
     max-width: 500px;
     height: auto;
+}
+
+.section-title {
+    font-family: "Trebuchet MS", sans-serif;
+    font-weight: bold;
+    margin: 3rem;
+    text-align: center;
+}
+
+.subsection-title {
+    font-family: "Trebuchet MS", sans-serif;
+    margin: 2rem;
+    text-align: center;
+}
+
+.add-post-icon {
+    position: center;
+    font-size: 10rem;
+    color: black;
+}
+
+.follow-tile {
+    background: var(--card-color);
+    color: var(--font-color);
 }
