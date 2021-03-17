@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-    <div>
+    <div class="container">
         <h1>Nouveau post</h1>
         <div class="container">
             {% with messages = get_flashed_messages() %}
@@ -19,30 +19,27 @@
                 {% endif %}
             {% endwith %}
         </div>
-
-        <form method="POST" action="{{ url_for('create_post.new_post_form') }}" enctype="multipart/form-data">
-            {# Hidden tag used for CSRF protection #}
-            {{ post_form.hidden_tag() }}
-            {{ post_form.crsf_token }}
-            <div class="form-group row" style="margin: 1em;">
-                <label class="col-sm-2 col-form-label">Ajouter une image</label>
-                <div class="col-sm-4">
-                    {{ post_form.image() }}
-                </div>
+        <div class="card">
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('create_post.new_post_form') }}" enctype="multipart/form-data">
+                    {# Hidden tag used for CSRF protection #}
+                    {{ post_form.hidden_tag() }}
+                    {{ post_form.crsf_token }}
+                    <div class="form-group row" style="margin: 1em;">
+                        <label class="col-sm-2 col-form-label">Ajouter une image</label>
+                        <div class="col-sm-4">
+                            {{ post_form.image() }}
+                        </div>
+                    </div>
+                    <div class="form-group row" style="margin: 1em;">
+                        <label class="col-sm-2 col-form-label">Description</label>
+                        <div class="col-sm-4">
+                            {{ post_form.description(placeholder='Description', class='form-control') }}
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary submit-button" style="margin: 1em;">Poster</button>
+                </form>
             </div>
-            {% if post_form.image.data %}
-                <div>
-                    <img src="window.URL.createObjectURL({{ post_form.image.data }})"
-                         alt="Prévisualisation de l'image"/>
-                </div>
-            {% endif %}
-            <div class="form-group row" style="margin: 1em;">
-                <label class="col-sm-2 col-form-label">Description</label>
-                <div class="col-sm-4">
-                    {{ post_form.description(placeholder='Description', class='form-control') }}
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary submit-button" style="margin: 1em;">Poster</button>
-        </form>
+        </div>
     </div>
 {% endblock %}
