@@ -8,18 +8,25 @@
 
 
 {% block content %}
-    <div>
-        <h1>Profil de {{ current_user.username }}</h1>
-        <a type="button" href="{{ url_for('create_post.new_post_form') }}" class="btn btn-outline-secondary"
-           style="margin-left: 680px">Ajouter un post</a>
-    </div>
+    <h1 class="section-title"> Bienvenue, {{ current_user.username }}.</h1>
+    <h2 class="subsection-title">Vos posts</h2>
     <div class="d-flex justify-content-sm-center flex-wrap feed">
-        <h2>Vos posts</h2>
+        <div class="card post text-center">
+            <a type="button" href="{{ url_for('create_post.new_post_form') }}" class="my-auto"
+               style="text-decoration: none"><i
+                    class="bi bi-plus-circle-dotted add-post-icon"></i>
+                <p>Ajouter un post</p></a>
+        </div>
         {% for post in posts %}
             {# Here we create an id for the post card (different from the post id), ~ is used for concatenation #}
             {% with post_card_id = 'post_card_'~post.id %}
                 {{ post_template(post, post_card_id) }}
             {% endwith %}
         {% endfor %}
+    </div>
+    <h2 class="subsection-title">Se déconnecter</h2>
+    <div class="text-center">
+        <a href="{{ url_for('auth.logout') }}"><i class="bi bi-box-arrow-right"
+                                                  style="font-weight: bold; font-size: 3rem"></i></a>
     </div>
 {% endblock %}

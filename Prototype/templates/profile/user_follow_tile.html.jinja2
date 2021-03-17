@@ -1,6 +1,6 @@
-<div id={{ 'user_tile_'~user.id }} class="card-body">
+<div id={{ 'user_tile_'~user.id }}>
     <div class="d-flex justify-content-sm-between flex-wrap">
-        <p>{{ user.username }}</p>
+        <p style="font-weight: bolder">{{ user.username }}</p>
         <button onclick="follow_user({{ user.id }})" type="button" {% if current_user.is_following(user) %}
                 class="btn btn-primary" {% else %} class="btn btn-danger" {% endif %}>
             {% if current_user.is_following(user) %} Se désabonner {% else %} S'abonner {% endif %}</button>
