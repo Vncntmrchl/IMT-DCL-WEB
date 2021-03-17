@@ -12,7 +12,7 @@
     <div class="container" style="max-width: 35rem">
         <ul class="list-group list-group-flush">
             {% for user in users %}
-                <li class="list-group-item" style="margin: 1rem">
+                <li class="list-group-item follow-tile" style="margin: 1rem">
                     {{ user_follow_tile(user, current_user) }}
                 </li>
             {% endfor %}

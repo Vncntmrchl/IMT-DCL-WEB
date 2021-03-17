@@ -123,3 +123,8 @@ nav {
     font-size: 10rem;
     color: black;
 }
+
+.follow-tile {
+    background: var(--card-color);
+    color: var(--font-color);
+}
