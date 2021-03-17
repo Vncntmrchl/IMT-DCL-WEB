@@ -1,5 +1,3 @@
-# https://codersdiaries.com/blog/flask-project-structure
-
 from flask_sqlalchemy import SQLAlchemy
 
 # We first instantiate a database for our project

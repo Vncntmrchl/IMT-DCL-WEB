@@ -6,8 +6,6 @@ from flask_login import login_required
 post = Blueprint('post', __name__, template_folder='templates')
 
 
-# TODO add "liked posts list" to User model and check if the user already liked it or not
-
 class Post(db.Model):
     id = db.Column(db.Integer,
                    primary_key=True)  # Post id, will also be used for unique post url and image naming as we don't
@@ -15,13 +13,11 @@ class Post(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # Author id
     username = db.Column(db.String)  # Easier to display username this way (avoid circular import)
     date = db.Column(db.Date, default=datetime.now())
-    image_name = db.Column(db.String)
+    image_name = db.Column(db.String)  # For local storage, post_id + file_extension (.jpg, .png ...)
     description = db.Column(db.Text)
     hearts = db.Column(db.Integer)  # The number of "likes" of the post
     current_user_liked_it = db.Column(
         db.Boolean)  # To know if the current user liked this post or not (no multiple likes)
-
-    # TODO Add picture to a post
 
     def __init__(self, user_id, username, image_name, description):
         self.user_id = user_id

@@ -33,7 +33,6 @@ class User(db.Model, UserMixin):
             return self
 
     def is_following(self, user):
-        # TODO Correct the filter unresolved attribute reference
         return self.followed.filter(followers.c.followed_id == user.id).count() > 0
 
     def followed_posts(self):
