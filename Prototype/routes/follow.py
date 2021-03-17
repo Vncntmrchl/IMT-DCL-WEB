@@ -10,7 +10,7 @@ follow = Blueprint('follow', __name__, template_folder='templates')
 @login_required
 def follow_index():
     users = db.session.query(User).all()
-    return render_template('profile/follow.html.jinja2', users=users)
+    return render_template('profile/follow.html.jinja2', users=users, current_user=current_user)
 
 
 @follow.route('/<int:followed_id>', methods=['POST'])
@@ -24,4 +24,5 @@ def follow_user(followed_id):
     else:
         current_user.unfollow(followed)
     db.session.commit()
-    return jsonify('', follow_index())
+    return jsonify('',
+                   render_template('profile/user_follow_tile.html.jinja2', user=followed, current_user=current_user))

@@ -1,0 +1,10 @@
+{% macro user_follow_tile(user, current_user) %}
+    <div id={{ 'user_tile_'~user.id }} class="card-body">
+        <div class="d-flex justify-content-sm-between flex-wrap">
+            <p>{{ user.username }}</p>
+            <button onclick="follow_user({{ user.id }})" type="button" {% if current_user.is_following(user) %}
+                    class="btn btn-primary" {% else %} class="btn btn-danger" {% endif %}>
+                {% if current_user.is_following(user) %} S'abonner {% else %} Se désabonner {% endif %}</button>
+        </div>
+    </div>
+{% endmacro %}

@@ -5,15 +5,18 @@
         <div class="card-body">
             <blockquote class="blockquote mb-0">
                 <div id="post_body">
-                    <p>{{ post.description }}</p>
+                    <div class="d-flex justify-content-sm-between flex-wrap">
+                        <p>{{ post.description }}</p>
+                        <button id="{{ 'button'~post_card_id }}" onclick="heart_post({{ post.id }})"
+                                class="heart-button" {% if post.current_user_liked_it %}
+                                style="color: indianred" {% endif %}><i
+                                class="bi bi-heart-fill"> {{ post.hearts }} </i></button>
+                    </div>
                     <footer class="blockquote-footer">
                         <div class="d-flex justify-content-sm-between flex-wrap">
                             <p>{{ post.username }} | {{ post.date }}</p>
                             {# We add an unique id to the button to animate it #}
-                            <button id="{{ 'button'~post_card_id }}" onclick="heart_post({{ post.id }})"
-                                    class="heart-button" {% if post.current_user_liked_it %}
-                                    style="color: indianred" {% endif %}><i
-                                    class="bi bi-heart-fill"> {{ post.hearts }} </i></button>
+                            <button onclick="del_post({{ post.id }})" type="button" class="btn-close"></button>
                         </div>
                     </footer>
                 </div>
