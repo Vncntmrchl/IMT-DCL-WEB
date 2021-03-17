@@ -1,6 +1,6 @@
 import os
 
-from flask import Blueprint, render_template, flash, redirect, url_for
+from flask import Blueprint, render_template, flash, redirect, url_for, jsonify, request
 from flask_login import login_required, current_user
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileRequired
@@ -33,10 +33,22 @@ def new_post_form():
         db.session.commit()
         image = post_form.image.data
         old_filename, file_extension = os.path.splitext(image.filename)
-        image.filename = str(new_post.id)+str(file_extension)
+        image.filename = str(new_post.id) + str(file_extension)
         new_post.image_name = image.filename
         images_upload_set.save(image)
         # We commit again to add the new image name to the post
         db.session.commit()
         return redirect(url_for('profile.profile_index'))
     return render_template('post/create_post.html.jinja2', user=user, post_form=post_form)
+
+
+@create_post.route('/del_post', methods=['DELETE'])
+@login_required
+def del_post():
+    post_id = request.json["id"]
+    # An user can only delete its own posts
+    current_post = db.session.query(Post).filter(Post.id == post_id)
+    if current_post.user_id == current_user.id:
+        db.session.query(Post).filter(Post.id == post_id).delete()
+        db.session.commit()
+    return jsonify('', render_template('profile/profile.html.jinja2'))
