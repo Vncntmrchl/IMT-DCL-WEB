@@ -9,13 +9,13 @@ post = Blueprint('post', __name__, template_folder='templates')
 # TODO add "liked posts list" to User model and check if the user already liked it or not
 
 class Post(db.Model):
-    id = db.Column(db.Integer, primary_key=True)  # Post id, will also be used for unique post url
+    id = db.Column(db.Integer,
+                   primary_key=True)  # Post id, will also be used for unique post url and image naming as we don't
+    # have a dedicated server to store images for this project
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # Author id
     username = db.Column(db.String)  # Easier to display username this way (avoid circular import)
-    image_path = db.Column(
-        db.String)  # We will use the path to the image folder as we don't have a dedicated server to store images
-    # for this project
     date = db.Column(db.Date, default=datetime.now())
+    image_name = db.Column(db.String)
     description = db.Column(db.Text)
     hearts = db.Column(db.Integer)  # The number of "likes" of the post
     current_user_liked_it = db.Column(
@@ -23,9 +23,10 @@ class Post(db.Model):
 
     # TODO Add picture to a post
 
-    def __init__(self, user_id, username, description):
+    def __init__(self, user_id, username, image_name, description):
         self.user_id = user_id
         self.username = username
+        self.image_name = image_name
         self.description = description
         self.hearts = 0
         self.current_user_liked_it = False

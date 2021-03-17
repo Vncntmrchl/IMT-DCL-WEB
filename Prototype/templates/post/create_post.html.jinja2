@@ -1,23 +1,91 @@
 {% extends 'base.html.jinja2' %}
 
 {% block title %}
-    <title>sexion d'assault</title>
+    <title>Création de post</title>
 
 {% endblock %}
-
 
 {% block content %}
     <div>
-        <h1>Création de post</h1>
-        <form>
-            <div class="form-group">
-                <label for="description">Description</label>
-                <input type="text" class="form-control" id="description" aria-describedby="description"
-                       placeholder="Enter description">
+        <h1>Nouveau post</h1>
+        <div class="container">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        <form method="POST" action="{{ url_for('create_post.new_post_form') }}" enctype="multipart/form-data">
+            {# Hidden tag used for CSRF protection #}
+            {{ post_form.hidden_tag() }}
+            {{ post_form.crsf_token }}
+            <div class="form-group row" style="margin: 1em;">
+                <label class="col-sm-2 col-form-label">Ajouter une image</label>
+                <div class="col-sm-4">
+                    {{ post_form.image() }}
+                </div>
             </div>
-            <button onclick="add_post({{ user.id }},'{{ user.username }}')" type="button" class="btn btn-primary">Créer
-                le post
-            </button>
+            {% if post_form.image.data %}
+                <div>
+                    <img src="window.URL.createObjectURL({{ post_form.image.data }})"
+                         alt="Prévisualisation de l'image"/>
+                </div>
+            {% endif %}
+            <div class="form-group row" style="margin: 1em;">
+                <label class="col-sm-2 col-form-label">Description</label>
+                <div class="col-sm-4">
+                    {{ post_form.description(placeholder='Description', class='form-control') }}
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary submit-button" style="margin: 1em;">Poster</button>
         </form>
+
+
+        {#        <div>
+            <form method="post" action="{{ url_for('create_post.add_post') }}" enctype="multipart/form-data">
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <img id="uploadedImage" src="" alt="Your image" class="image-preview"/>
+                        <input type=file name=file class="form-control" accept="image/*"
+                               onchange="document.getElementById('uploadedImage').src = window.URL.createObjectURL(this.files[0])">
+                        <label for="description" class="input-group-text">Description</label>
+                        <input type="text" class="form-control" id="description" aria-describedby="description"
+                               placeholder="Enter description">
+                    </div>
+                    <input type="submit" value="Poster !"/>
+                </div>
+
+                #}{#                <button onclick="add_post({{ user.id }},'{{ user.username }}')" type="button"
+                        class="btn btn-primary">
+                    Créer le post
+                </button>#}{#
+            </form>
+        </div>#}
     </div>
 {% endblock %}
+
+
+
+
+<form method="POST" action="{{ url_for('auth.login') }}">
+    {# Hidden tag used for CSRF protection #}
+    {{ login_form.hidden_tag() }}
+    <div class="form-group row" style="margin: 1em;">
+        <label class="col-sm-2 col-form-label">Nom d'utilisateur</label>
+        <div class="col-sm-4">
+            {{ login_form.username(placeholder="Nom d'utilisateur", class='form-control') }}
+        </div>
+    </div>
+    <div class="form-group row" style="margin: 1em;">
+        <label class="col-sm-2 col-form-label">Mot de passe</label>
+        <div class="col-sm-4">
+            {{ login_form.password(placeholder='Mot de passe', class='form-control') }}
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary submit-button" style="margin: 1em;">Connexion</button>
+</form>
