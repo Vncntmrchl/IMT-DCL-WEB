@@ -99,6 +99,25 @@
             }
         })
     }
+
+    function del_post(post_id) {
+        if (confirm("Voulez-vous vraiment supprimer ce post")) {
+            $.ajax({
+                url: '/create_post/del_post',
+                type: 'DELETE',
+                dataType: 'json',
+                contentType: "application/json",
+                data: JSON.stringify({
+                    "id": post_id,
+                }),
+                success: function () {
+                    window.location.href = "/profile";
+                }
+            })
+
+        }
+
+    }
 </script>
 
 </body>
