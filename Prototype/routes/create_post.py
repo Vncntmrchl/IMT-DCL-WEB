@@ -47,7 +47,7 @@ def new_post_form():
 def del_post():
     post_id = request.json["id"]
     # An user can only delete its own posts
-    current_post = db.session.query(Post).filter(Post.id == post_id)
+    current_post = db.session.query(Post).get(int(post_id))
     if current_post.user_id == current_user.id:
         db.session.query(Post).filter(Post.id == post_id).delete()
         db.session.commit()
