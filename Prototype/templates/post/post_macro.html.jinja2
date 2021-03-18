@@ -5,7 +5,7 @@
             <img src="../../static/images_storage/{{ post.image_name }}" class="card-img-top" alt="Post {{ post.id }}">
             <div class="card-body">
                 <blockquote class="blockquote mb-0">
-                    <div id="post_body" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <div id="post_body" data-bs-toggle="modal" data-bs-target="#{{'exampleModal'~post_card_id  }}">
                         <div class="d-flex justify-content-sm-between flex-wrap">
                             <p>{{ post.description }}</p>
                             <button id="{{ 'button'~post_card_id }}" onclick="heart_post({{ post.id }})"
@@ -26,20 +26,20 @@
         </div>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="{{'exampleModal'~post_card_id  }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Post de  {{ post.username }} du {{ post.date }}</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Post de {{ post.username }} du {{ post.date }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <img src="../../static/images_storage/{{ post.image_name }}" class="card-img-top" alt="Post {{ post.id }}">
+                    <img src="../../static/images_storage/{{ post.image_name }}" class="card-img-top"
+                         alt="Post {{ post.id }}">
                     <p>{{ post.description }} </p>
                 </div>
                 <div class="modal-footer">
                     <p style="margin-right: 370px">Commentaires:</p>
-
                 </div>
             </div>
         </div>
