@@ -46,6 +46,9 @@ def new_post_form():
 @login_required
 def del_post():
     post_id = request.json["id"]
-    db.session.query(Post).filter(Post.id == post_id).delete()
-    db.session.commit()
+    # An user can only delete its own posts
+    current_post = db.session.query(Post).get(int(post_id))
+    if current_post.user_id == current_user.id:
+        db.session.query(Post).filter(Post.id == post_id).delete()
+        db.session.commit()
     return jsonify('', render_template('profile/profile.html.jinja2'))

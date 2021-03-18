@@ -1,5 +1,5 @@
 {% extends 'base.html.jinja2' %}
-{% from 'post/post_macro.html.jinja2' import post_template %}
+{% from 'post/post_macro.html.jinja2' import post_delete_template %}
 
 {% block title %}
     <title>Profil</title>
@@ -20,7 +20,7 @@
         {% for post in posts %}
             {# Here we create an id for the post card (different from the post id), ~ is used for concatenation #}
             {% with post_card_id = 'post_card_'~post.id %}
-                {{ post_template(post, post_card_id) }}
+                {{ post_delete_template(post, post_card_id) }}
             {% endwith %}
         {% endfor %}
     </div>
