@@ -82,7 +82,13 @@
                     <p>{{ post.description }} </p>
                 </div>
                 <div class="modal-footer">
-                    <p style="margin-right: 370px">Commentaires:</p>
+                <p style="margin-right: 370px">Commentaires:</p>
+                <ul>
+                    {%for comment in post.comments%}
+                        <li style="margin-right: 370px">{{ comment.body }} </li>
+
+                    {% endfor %}
+                </ul>
                 </div>
             </div>
         </div>
