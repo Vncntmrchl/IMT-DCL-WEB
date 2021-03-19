@@ -11,7 +11,7 @@ create_comment = Blueprint('create_comment', __name__, template_folder='template
 @login_required
 def add_comment():
     data = request.json
-    c = Comment(user_id=data["user_id"], post_id=data["post_id"], body=data["body"])
+    c = Comment(user_id=data["user_id"], username=data["username"], post_id=data["post_id"], body=data["body"])
     db.session.add(c)
     db.session.commit()
     return jsonify('', render_template('feed/feed.html.jinja2'))
