@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for
+from flask import Blueprint, render_template, redirect, url_for, request, jsonify
 from flask_login import login_required, current_user
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField
@@ -28,3 +28,14 @@ def profile_index():
         db.session.commit()
         return redirect(url_for('profile.profile_index'))
     return render_template('profile/profile.html.jinja2', posts=posts, comment_form=comment_form)
+
+
+@profile.route('/add_comment', methods=['POST'])
+@login_required
+def add_comment():
+    data = request.json
+    print(data, "ccccc")
+    c = Comment(user_id=data["user_id"], post_id=data["post_id"], body=data["body"])
+    db.session.add(c)
+    db.session.commit()
+    return jsonify('', render_template('profile/profile.html.jinja2'))
