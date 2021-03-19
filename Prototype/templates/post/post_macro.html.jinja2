@@ -5,7 +5,7 @@
             <img src="../../static/images_storage/{{ post.image_name }}" class="card-img-top" alt="Post {{ post.id }}">
             <div class="card-body">
                 <blockquote class="blockquote mb-0">
-                    <div id="post_body" data-bs-toggle="modal" data-bs-target="#{{ 'exampleModal'~post_card_id }}">
+                    <div id="post_body">
                         <div class="d-flex justify-content-sm-between flex-wrap">
                             <p>{{ post.description }}</p>
                             <button id="{{ 'button'~post_card_id }}" onclick="heart_post({{ post.id }})"
@@ -14,7 +14,13 @@
                                     class="bi bi-heart-fill"> {{ post.hearts }} </i></button>
                         </div>
                         <footer class="blockquote-footer">
-                            <p>{{ post.username }} | {{ post.date }}</p>
+                            <div class="d-flex justify-content-sm-between flex-wrap">
+                                <p>{{ post.username }} | {{ post.date }}</p>
+                                <button class="btn comment-button" data-bs-toggle="modal"
+                                        data-bs-target="#{{ 'modal_'~post_card_id }}">
+                                    Commentaires
+                                </button>
+                            </div>
                         </footer>
                     </div>
                 </blockquote>
@@ -22,35 +28,36 @@
         </div>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="{{ 'exampleModal'~post_card_id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
+    <div class="modal fade" id="{{ 'modal_'~post_card_id }}" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Post de {{ post.username }} du {{ post.date }}</h5>
+                    <h4 class="modal-title">Post de {{ post.username }} | {{ post.date }}</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <img src="../../static/images_storage/{{ post.image_name }}" class="card-img-top"
                          alt="Post {{ post.id }}">
-                    <p>{{ post.description }} </p>
+                    <p style="margin-top: 1rem">{{ post.description }}</p>
                 </div>
                 <div class="modal-footer">
-                    <p style="margin-right: 370px">Commentaires:</p>
-                    <ul>
-                        {% for comment in post.comments %}
-                            <li style="margin-right: 370px">{{ comment.body }} </li>
-                        {% endfor %}
-                    </ul>
-                    <form style="margin-right: 370px">
+                    <div>
+                        <h4 class="subsection-title">Commentaires</h4>
+                        <ul class="list-group">
+                            {% for comment in post.comments %}
+                                <li class="list-group-item">{{ comment.body }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <form>
                         <div class="form-group">
-                            <label>Commentaire</label>
-                            <input type="text" class="form-control" id="{{'body'~post_card_id }}"  aria-describedby="body"
-                            >
+                            <input type="text" class="form-control" id="{{ 'body'~post_card_id }}"
+                                   placeholder="Ajouter un commentaire">
                         </div>
-
-                        <button onclick="add_comment({{ post.user_id }},{{ post.id }}, '{{ post_card_id}}')" type="button"
-                                class="btn btn-primary">ajouter le com
+                        <button onclick="add_comment({{ post.user_id }},{{ post.id }}, '{{ post_card_id }}')"
+                                type="button"
+                                class="btn btn-primary">Commenter
                         </button>
                     </form>
                 </div>
@@ -66,7 +73,7 @@
             <img src="../../static/images_storage/{{ post.image_name }}" class="card-img-top" alt="Post {{ post.id }}">
             <div class="card-body">
                 <blockquote class="blockquote mb-0">
-                    <div id="post_body" data-bs-toggle="modal" data-bs-target="#{{ 'exampleModal'~post_card_id }}">
+                    <div id="post_body" data-bs-toggle="modal" data-bs-target="#{{ 'modal_'~post_card_id }}">
                         <div class="d-flex justify-content-sm-between flex-wrap">
                             <p>{{ post.description }}</p>
                             <button id="{{ 'button'~post_card_id }}" onclick="heart_post({{ post.id }})"
@@ -88,35 +95,36 @@
         </div>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="{{ 'exampleModal'~post_card_id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
+    <div class="modal fade" id="{{ 'modal_'~post_card_id }}" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Post de {{ post.username }} du {{ post.date }}</h5>
+                    <h4 class="modal-title">Post de {{ post.username }} | {{ post.date }}</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <img src="../../static/images_storage/{{ post.image_name }}" class="card-img-top"
                          alt="Post {{ post.id }}">
-                    <p>{{ post.description }} </p>
+                    <p style="margin-top: 1rem">{{ post.description }}</p>
                 </div>
                 <div class="modal-footer">
-                    <p style="margin-right: 370px">Commentaires:</p>
-                    <ul>
-                        {% for comment in post.comments %}
-                            <li style="margin-right: 370px">{{ comment.body }} </li>
-                        {% endfor %}
-                    </ul>
-                    <form style="margin-right: 370px">
+                    <div>
+                        <h4 class="subsection-title">Commentaires</h4>
+                        <ul class="list-group">
+                            {% for comment in post.comments %}
+                                <li class="list-group-item">{{ comment.body }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <form>
                         <div class="form-group">
-                            <label>Commentaire</label>
-                            <input type="text" class="form-control" id="{{'body'~post_card_id }}"  aria-describedby="body"
-                            >
+                            <input type="text" class="form-control" id="{{ 'body'~post_card_id }}"
+                                   placeholder="Ajouter un commentaire">
                         </div>
-
-                        <button onclick="add_comment({{ post.user_id }},{{ post.id }}, '{{ post_card_id}}')" type="button"
-                                class="btn btn-primary">ajouter le com
+                        <button onclick="add_comment({{ post.user_id }},{{ post.id }}, '{{ post_card_id }}')"
+                                type="button"
+                                class="btn btn-primary">Commenter
                         </button>
                     </form>
                 </div>

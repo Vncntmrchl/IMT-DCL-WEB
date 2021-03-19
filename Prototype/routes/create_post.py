@@ -44,7 +44,7 @@ def new_post_form():
 
 
 class NewCommentForm(FlaskForm):
-    body = StringField('body', validators=[InputRequired(), Length(max=1350)])
+    body = StringField('Commentaire', validators=[InputRequired(), Length(max=1350)])
     submit = SubmitField('Submit')
 
 
@@ -57,6 +57,7 @@ def new_comment_form(post_id):
         new_comment = Comment(body=comment_form.body.data, post_id=post_id, user_id=user.id)
         db.session.add(new_comment)
         db.session.commit()
+        # TODO redirect bad
         return redirect(url_for('profile.profile_index'))
     return render_template('post/create_post.html.jinja2', user=user, comment_form=comment_form)
 

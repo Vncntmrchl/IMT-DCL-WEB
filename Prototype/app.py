@@ -72,9 +72,4 @@ def setup():
         c3 = Comment(user_id=u2.get_id(), body="It do be like that sometime", post_id=p1.id)
         db.session.add_all([c1, c2, c3])
         db.session.commit()
-        for comment in Comment.query.all():
-            print(comment.body)
-        for p in Post.query.all():
-            for c in p.comments:
-                print(p.id, c.body)
     return app
