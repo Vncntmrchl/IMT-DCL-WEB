@@ -18,6 +18,7 @@ from routes.create_post import create_post
 from routes.follow import follow
 from routes.profile import profile
 from routes.feed import feed
+from routes.create_comment import create_comment
 
 
 def setup():
@@ -42,6 +43,7 @@ def setup():
     app.register_blueprint(post, url_prefix='/post')
     app.register_blueprint(follow, url_prefix='/follow')
     app.register_blueprint(create_post, url_prefix='/create_post')
+    app.register_blueprint(create_comment, url_prefix='/create_comment')
 
     # Here we create some tests models
     with app.app_context():

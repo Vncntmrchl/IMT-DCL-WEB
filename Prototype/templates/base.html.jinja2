@@ -82,7 +82,7 @@
 
         function add_comment(user_id,post_id,id) {
         $.ajax({
-            url: '/profile/add_comment',
+            url: '/create_comment/add_comment',
             type: 'POST',
             dataType: 'json',
             contentType: "application/json",
@@ -94,7 +94,7 @@
             })
             ,
             success: function () {
-                window.location.href = "/profile";
+                window.location.href = "/";
             }
         })
     }

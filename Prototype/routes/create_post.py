@@ -1,13 +1,12 @@
 import os
 
-from flask import Blueprint, render_template, flash, redirect, url_for, jsonify, request
+from flask import Blueprint, render_template, redirect, url_for, jsonify, request
 from flask_login import login_required, current_user
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileRequired
 from wtforms import FileField, StringField, SubmitField
 from wtforms.validators import InputRequired, Length
 
-from models.Comment import Comment
 from models.Post import Post
 from database.database import db
 from uploads.uploads import images_upload_set
@@ -41,25 +40,6 @@ def new_post_form():
         db.session.commit()
         return redirect(url_for('profile.profile_index'))
     return render_template('post/create_post.html.jinja2', user=user, post_form=post_form)
-
-
-class NewCommentForm(FlaskForm):
-    body = StringField('Commentaire', validators=[InputRequired(), Length(max=1350)])
-    submit = SubmitField('Submit')
-
-
-@create_post.route('/add_comment', methods=['GET', 'POST'])
-@login_required
-def new_comment_form(post_id):
-    user = current_user
-    comment_form = NewCommentForm()
-    if comment_form.validate_on_submit():
-        new_comment = Comment(body=comment_form.body.data, post_id=post_id, user_id=user.id)
-        db.session.add(new_comment)
-        db.session.commit()
-        # TODO redirect bad
-        return redirect(url_for('profile.profile_index'))
-    return render_template('post/create_post.html.jinja2', user=user, comment_form=comment_form)
 
 
 @create_post.route('/del_post', methods=['DELETE'])

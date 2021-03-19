@@ -41,7 +41,7 @@
                     <p style="margin-top: 1rem">{{ post.description }}</p>
                 </div>
                 <div class="modal-footer">
-                    <div>
+                    <div class="container">
                         <h4 class="subsection-title">Commentaires</h4>
                         <ul class="list-group">
                             {% for comment in post.comments %}
@@ -50,14 +50,14 @@
                         </ul>
                     </div>
                     <div class="dropdown-divider"></div>
-                    <form>
+                    <form class="container">
                         <div class="form-group">
                             <input type="text" class="form-control" id="{{ 'body'~post_card_id }}"
                                    placeholder="Ajouter un commentaire">
                         </div>
                         <button onclick="add_comment({{ post.user_id }},{{ post.id }}, '{{ post_card_id }}')"
                                 type="button"
-                                class="btn btn-primary">Commenter
+                                class="btn btn-primary form-control comment-button">Commenter
                         </button>
                     </form>
                 </div>

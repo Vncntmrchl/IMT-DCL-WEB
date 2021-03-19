@@ -17,7 +17,6 @@ class RegistrationForm(FlaskForm):
                         validators=[InputRequired(), Length(max=25)])
     username = StringField("Nom d'utilisateur", validators=[InputRequired(), Length(min=5, max=12)])
     password = PasswordField('Mot de passe', validators=[InputRequired(), Length(min=8, max=100)])
-    # TODO Check valid email
 
 
 class LoginForm(FlaskForm):

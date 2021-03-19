@@ -137,5 +137,6 @@ nav {
 .comment-button {
     background: var(--accent-color);
     color: white;
+    border: none;
     outline: none;
 }
