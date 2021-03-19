@@ -8,17 +8,6 @@
 {% block content %}
     <div class="container">
         <h1 class="section-title"> Créer un nouveau post</h1>
-        <div class="container">
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    <ul>
-                        {% for message in messages %}
-                            <li>{{ message }}</li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-            {% endwith %}
-        </div>
         <div class="card">
             <div class="card-body">
                 <form method="POST" action="{{ url_for('create_post.new_post_form') }}" enctype="multipart/form-data">
