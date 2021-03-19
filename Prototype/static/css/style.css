@@ -133,3 +133,10 @@ nav {
     background: var(--card-color);
     color: var(--font-color);
 }
+
+.comment-button {
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    outline: none;
+}

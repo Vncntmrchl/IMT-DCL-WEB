@@ -7,6 +7,7 @@ from flask_uploads import configure_uploads
 
 # Models imports
 from database.database import db, db_init_app
+from models.Comment import Comment
 from uploads.uploads import images_upload_set
 from models.User import User
 from models.Post import Post, post
@@ -17,6 +18,7 @@ from routes.create_post import create_post
 from routes.follow import follow
 from routes.profile import profile
 from routes.feed import feed
+from routes.create_comment import create_comment
 
 
 def setup():
@@ -41,6 +43,7 @@ def setup():
     app.register_blueprint(post, url_prefix='/post')
     app.register_blueprint(follow, url_prefix='/follow')
     app.register_blueprint(create_post, url_prefix='/create_post')
+    app.register_blueprint(create_comment, url_prefix='/create_comment')
 
     # Here we create some tests models
     with app.app_context():
@@ -65,5 +68,10 @@ def setup():
         u3.follow(u3)
         db.session.add_all([p1, p2, p3, p4])
         u1.follow(u2)
+        db.session.commit()
+        c1 = Comment(user_id=u3.get_id(), username=u3.username, body="trop b1 cette tof omg", post_id=p4.id)
+        c2 = Comment(user_id=u3.get_id(), username=u3.username, body="les rageux diront photoshop", post_id=p4.id)
+        c3 = Comment(user_id=u2.get_id(), username=u2.username, body="It do be like that sometime", post_id=p1.id)
+        db.session.add_all([c1, c2, c3])
         db.session.commit()
     return app
