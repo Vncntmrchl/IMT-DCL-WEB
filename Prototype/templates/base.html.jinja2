@@ -80,6 +80,25 @@
         })
     }
 
+        function add_comment(user_id,post_id,id) {
+        $.ajax({
+            url: '/profile/add_comment',
+            type: 'POST',
+            dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify({
+                "body": $("#body"+id).val(),
+                "post_id":  post_id,
+                "user_id": user_id,
+
+            })
+            ,
+            success: function () {
+                window.location.href = "/profile";
+            }
+        })
+    }
+
     function add_post(user_id, username) {
         $.ajax({
             url: '/create_post/',

@@ -2,6 +2,7 @@ from database.database import db
 from datetime import datetime
 from flask import Blueprint, render_template, jsonify
 from flask_login import login_required
+from models.Comment import Comment
 
 post = Blueprint('post', __name__, template_folder='templates')
 
@@ -18,6 +19,7 @@ class Post(db.Model):
     hearts = db.Column(db.Integer)  # The number of "likes" of the post
     current_user_liked_it = db.Column(
         db.Boolean)  # To know if the current user liked this post or not (no multiple likes)
+    comments = db.relationship('Comment', backref='article', lazy=True)
 
     def __init__(self, user_id, username, image_name, description):
         self.user_id = user_id

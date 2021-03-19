@@ -7,6 +7,7 @@ from flask_uploads import configure_uploads
 
 # Models imports
 from database.database import db, db_init_app
+from models.Comment import Comment
 from uploads.uploads import images_upload_set
 from models.User import User
 from models.Post import Post, post
@@ -66,4 +67,14 @@ def setup():
         db.session.add_all([p1, p2, p3, p4])
         u1.follow(u2)
         db.session.commit()
+        c1 = Comment(user_id=u3.get_id(), body="trop b1 cette tof omg", post_id=p4.id)
+        c2 = Comment(user_id=u3.get_id(), body="les rageux diront photoshop", post_id=p4.id)
+        c3 = Comment(user_id=u2.get_id(), body="It do be like that sometime", post_id=p1.id)
+        db.session.add_all([c1, c2, c3])
+        db.session.commit()
+        for comment in Comment.query.all():
+            print(comment.body)
+        for p in Post.query.all():
+            for c in p.comments:
+                print(p.id, c.body)
     return app
