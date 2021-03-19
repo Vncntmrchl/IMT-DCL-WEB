@@ -78,6 +78,11 @@ nav {
     padding: 0 10%;
 }
 
+.login-form {
+    position: relative;
+    left: 25%;
+}
+
 .submit-button {
     background: var(--accent-color);
     border: none;
