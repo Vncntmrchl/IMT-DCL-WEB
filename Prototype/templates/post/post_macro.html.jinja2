@@ -57,7 +57,7 @@
                             <input type="text" class="form-control" id="{{ 'body'~post_card_id }}"
                                    placeholder="Ajouter un commentaire">
                         </div>
-                        <button onclick="add_comment({{ post.user_id }}, {{ post.username }}, {{ post.id }}, '{{ post_card_id }}')"
+                        <button onclick="add_comment({{ post.id }}, '{{ post_card_id }}')"
                                 type="button"
                                 class="btn btn-primary form-control comment-button">Commenter
                         </button>

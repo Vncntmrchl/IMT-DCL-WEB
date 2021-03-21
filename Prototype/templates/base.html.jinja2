@@ -80,7 +80,7 @@
         })
     }
 
-        function add_comment(user_id, username, post_id, id) {
+        function add_comment(post_id, id) {
         $.ajax({
             url: '/create_comment/add_comment',
             type: 'POST',
@@ -88,10 +88,7 @@
             contentType: "application/json",
             data: JSON.stringify({
                 "body": $("#body"+id).val(),
-                "username": username,
                 "post_id":  post_id,
-                "user_id": user_id,
-
             })
             ,
             success: function () {
@@ -119,7 +116,7 @@
     }
 
     function del_post(post_id) {
-        if (confirm("Voulez-vous vraiment supprimer ce post")) {
+        if (confirm("Voulez-vous vraiment supprimer ce post ?")) {
             $.ajax({
                 url: '/create_post/del_post',
                 type: 'DELETE',

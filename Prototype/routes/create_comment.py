@@ -1,8 +1,9 @@
 from flask import Blueprint, render_template, request, jsonify
-from flask_login import login_required
+from flask_login import login_required, current_user
 
 from database.database import db
 from models.Comment import Comment
+from models.User import User
 
 create_comment = Blueprint('create_comment', __name__, template_folder='templates')
 
@@ -11,7 +12,9 @@ create_comment = Blueprint('create_comment', __name__, template_folder='template
 @login_required
 def add_comment():
     data = request.json
-    c = Comment(user_id=data["user_id"], username=data["username"], post_id=data["post_id"], body=data["body"])
+    user_id = current_user.get_id()
+    author = db.session.query(User).get(user_id)
+    c = Comment(user_id=author.id, username=author.username, post_id=data["post_id"], body=data["body"])
     db.session.add(c)
     db.session.commit()
     return jsonify('', render_template('feed/feed.html.jinja2'))
