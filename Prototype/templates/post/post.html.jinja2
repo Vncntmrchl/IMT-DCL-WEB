@@ -1,4 +1,3 @@
-<!-- This template is used by AJAX to rerender a post when the user likes it as we can't use the jinja2 macro with AJAX) -->
 <div id="{{ post_card_id }}">
     <div class="card post">
         <img src="../../static/images_storage/{{ post.image_name }}" class="card-img-top" alt="Post {{ post.id }}">
@@ -40,24 +39,25 @@
                 <p style="margin-top: 1rem">{{ post.description }}</p>
             </div>
             <div class="modal-footer">
-                <div>
+                <div class="container">
                     <h4 class="subsection-title">Commentaires</h4>
                     <ul class="list-group">
                         {% for comment in post.comments %}
                             <li class="list-group-item"><span
-                                    style="font-weight: bold">{{ comment.username }}</span> ~ {{ comment.body }}</li>
+                                    style="font-weight: bold">{{ comment.username }}</span> ~ {{ comment.body }}
+                            </li>
                         {% endfor %}
                     </ul>
                 </div>
                 <div class="dropdown-divider"></div>
-                <form>
+                <form class="container">
                     <div class="form-group">
                         <input type="text" class="form-control" id="{{ 'body'~post_card_id }}"
                                placeholder="Ajouter un commentaire">
                     </div>
-                    <button onclick="add_comment({{ post.user_id }}, {{ post.username }}, {{ post.id }}, '{{ post_card_id }}')"
+                    <button onclick="add_comment({{ post.id }}, '{{ post_card_id }}')"
                             type="button"
-                            class="btn btn-primary">Commenter
+                            class="btn btn-primary form-control comment-button">Commenter
                     </button>
                 </form>
             </div>
