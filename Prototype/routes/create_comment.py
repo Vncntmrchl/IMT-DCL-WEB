@@ -14,6 +14,7 @@ def add_comment():
     data = request.json
     user_id = current_user.get_id()
     author = db.session.query(User).get(user_id)
+    print(data)
     c = Comment(user_id=author.id, username=author.username, post_id=data["post_id"], body=data["body"])
     db.session.add(c)
     db.session.commit()
