@@ -44,6 +44,12 @@
 
 {% endblock %}
 
+<footer class="page-footer" style="display: grid; place-items: center; color: white";>
+    <div>Icons are from the Bootstrap Icons library or made by <a href="https://www.freepik.com"
+                                                                  title="Freepik">Freepik</a> from <a
+            href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+</footer>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
         crossorigin="anonymous"></script>
@@ -80,15 +86,15 @@
         })
     }
 
-        function add_comment(post_id, id) {
+    function add_comment(post_id, id) {
         $.ajax({
             url: '/create_comment/add_comment',
             type: 'POST',
             dataType: 'json',
             contentType: "application/json",
             data: JSON.stringify({
-                "body": $("#body"+id).val(),
-                "post_id":  post_id,
+                "body": $("#body" + id).val(),
+                "post_id": post_id,
             })
             ,
             success: function () {

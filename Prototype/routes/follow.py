@@ -9,7 +9,7 @@ follow = Blueprint('follow', __name__, template_folder='templates')
 @follow.route('/')
 @login_required
 def follow_index():
-    users = db.session.query(User).all()
+    users = db.session.query(User)
     return render_template('profile/follow.html.jinja2', users=users, current_user=current_user)
 
 
