@@ -4,7 +4,7 @@ from flask import Blueprint, render_template, redirect, url_for, jsonify, reques
 from flask_login import login_required, current_user
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileRequired
-from wtforms import FileField, StringField, SubmitField
+from wtforms import FileField, StringField, SubmitField, FieldList
 from wtforms.validators import InputRequired, Length
 
 from models.Post import Post
@@ -18,6 +18,8 @@ class NewPostForm(FlaskForm):
     image = FileField('Image', validators=[FileRequired()])
     description = StringField('Description', validators=[InputRequired(), Length(max=350)])
     submit = SubmitField('Submit')
+    # tags = FieldList(StringField('Tag', validators=[InputRequired(), Length(max=40)]))
+    tags = StringField('Tag', validators=[InputRequired(), Length(max=400)])
 
 
 @create_post.route('/', methods=['GET', 'POST'])
@@ -27,8 +29,17 @@ def new_post_form():
     post_form = NewPostForm()
     if post_form.validate_on_submit():
         # We first create the post, then process the image to give it the correct name
-        new_post = Post(user_id=user.id, username=user.username, image_name='', description=post_form.description.data)
+        # tags = post_form.tags
+        # tagstr = ""
+        # if tags:
+        #     tagstr = tags.pop_entry()
+        #     for tag in tags:
+        #         tagstr += " " + tag
+        # print(tagstr)
+        new_post = Post(user_id=user.id, username=user.username, image_name='', description=post_form.description.data,
+                        tags=post_form.tags.data)
         # We add and commit so that the post gets attributed an id in the database
+        print(new_post.tags, "tag")
         db.session.add(new_post)
         db.session.commit()
         image = post_form.image.data

@@ -20,14 +20,17 @@ class Post(db.Model):
     current_user_liked_it = db.Column(
         db.Boolean)  # To know if the current user liked this post or not (no multiple likes)
     comments = db.relationship('Comment', backref='article', lazy=True)
+    # tags = db.relationship('Tag', backref='article', lazy=True)
+    tags = db.Column(db.Text)
 
-    def __init__(self, user_id, username, image_name, description):
+    def __init__(self, user_id, username, image_name, description, tags):
         self.user_id = user_id
         self.username = username
         self.image_name = image_name
         self.description = description
         self.hearts = 0
         self.current_user_liked_it = False
+        self.tags = tags
 
 
 # We give the post id as an argument in the url to select the right post
@@ -47,3 +50,5 @@ def heart(post_id):
     # This string is for the html template that will need a standardized id for the "heart" button
     post_card_id = 'post_card_' + str(current_post.id)
     return jsonify('', render_template('post/post.html.jinja2', post=current_post, post_card_id=post_card_id))
+
+
