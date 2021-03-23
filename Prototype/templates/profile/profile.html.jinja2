@@ -1,5 +1,5 @@
 {% extends 'base.html.jinja2' %}
-{% from 'post/post_macro.html.jinja2' import post_delete_template %}
+{% from 'post/post_macro.html.jinja2' import post_template %}
 
 {% block title %}
     <title>Profil</title>
@@ -20,28 +20,58 @@
         {% for post in posts %}
             {# Here we create an id for the post card (different from the post id), ~ is used for concatenation #}
             {% with post_card_id = 'post_card_'~post.id %}
-                {{ post_delete_template(post, post_card_id) }}
+                <div>
+                    {{ post_template(post, post_card_id) }}
+                    <button onclick="del_post({{ post.id }})" type="button" class="btn btn-danger" style="width: 25rem">
+                        Supprimer
+                    </button>
+                </div>
             {% endwith %}
         {% endfor %}
     </div>
-    {#    <form method="POST" action="{{ url_for('profile.profile_index') }}">#}
-    {# Hidden tag used for CSRF protection #}
-    {#        {{ comment_form.hidden_tag() }}#}
-    {#        <div class="form-group row" style="margin: 1em;">#}
-    {#            <label class="col-sm-2 col-form-label">Commentaire</label>#}
-    {#                        <div class="col-sm-4">#}
-    {#                {{ comment_form.post_id(placeholder="post id", class='form-control') }}#}
-    {#            </div>#}
-    {#            <div class="col-sm-4">#}
-    {#                {{ comment_form.body(placeholder="Commentaire", class='form-control') }}#}
-    {#            </div>#}
-    {#        </div>#}
-    {#        <button type="submit" class="btn btn-primary submit-button" style="margin: 1em;">Ajouter</button>#}
-    {#    </form>#}
+    <h2 class="subsection-title">Votre tableau de bord</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <div class="card-text">Vous avez posté {{ number_images_user }} images ce qui représente</div>
+                        <h5 class="card-title" style="margin-top: 0.75rem">{{ images_user_size }} Mb</h5>
+                        <div class="card-text"></div>
+                        de données stockées.
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <div class="card-text">Au total, {{ number_images_global }} images ont été postées, ce qui
+                            représente
+                        </div>
+                        <h5 class="card-title" style="margin-top: 0.75rem">{{ images_global_size }} Mb</h5>
+                        <div class="card-text"></div>
+                        de données stockées.
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <div class="card-text">Au total, vous avez chargé {{ number_images_seen }} images au cours de
+                            votre utilisation de Protogram, ce qui
+                            représente
+                        </div>
+                        <h5 class="card-title" style="margin-top: 0.75rem">{{ images_seen_size }} Mb</h5>
+                        <div class="card-text"></div>
+                        de données consommées.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <h2 class="subsection-title">Se déconnecter</h2>
     <div class="text-center">
         <a href="{{ url_for('auth.logout') }}"><i class="bi bi-box-arrow-right"
                                                   style="font-weight: bold; font-size: 3rem"></i></a>
     </div>
-    <body>
 {% endblock %}
