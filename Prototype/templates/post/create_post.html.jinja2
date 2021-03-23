@@ -29,23 +29,10 @@
                     <div class="form-group row" style="margin: 1em;">
                         <label class="col-sm-2 col-form-label">Tags</label>
                         <div class="col-sm-4">
-                            {{ post_form.tags(placeholder='Tag', class='form-control') }}
+                            {{ post_form.tags(placeholder='Tags', class='form-control') }}
                         </div>
+                        <small style="margin-left: 206px">Merci de séparer les tags d'un espace.</small>
                     </div>
-                    {#                    <div data-module="Tokens" data-module-endpoint="tokens.json?q=${term}" data-module-strict="false"#}
-                    {#                         data-action="focus">#}
-                    {#                        <div data-name="tokensContainer"></div>#}
-                    {#                        <input type="text"#}
-                    {#                               name="value"#}
-                    {#                               data-name="input"#}
-                    {#                               data-action="search"#}
-                    {#                               data-action-type="input"#}
-                    {#                               placeholder="ajouter des tags">#}
-                    {#                        <div data-name="resultsContainer">#}
-                    {#                            {% for  %}#}
-                    {#                            {{ post_form.tags(placeholder='Tag', class='form-control') }}#}
-                    {#                        </div>#}
-                    {#                    </div>#}
                     <button type="submit" class="btn btn-primary submit-button" style="margin: 1em;">Poster</button>
                 </form>
             </div>

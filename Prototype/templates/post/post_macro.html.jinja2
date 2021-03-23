@@ -1,8 +1,8 @@
 {# This macro is used to import the post template and avoid rewriting the same code again and again #}
 {% macro post_template(post, post_card_id) %}
     <div id="{{ post_card_id }}">
-        <div class="card post">
-            <img src="../../static/images_storage/{{ post.image_name }}" class="card-img-top" alt="Post {{ post.id }}">
+        <div class="card post" style="">
+            <img src="../../static/images_storage/{{ post.image_name }}" class="card-img-top" alt="Post {{ post.id }}" style="">
             <div class="card-body">
                 <blockquote class="blockquote mb-0">
                     <div id="post_body">
