@@ -26,5 +26,5 @@ def search():
             for tag in post.tags.split():
                 if tag == search_form.description.data:
                     posts.append(post)
-        return render_template('feed/feed.html.jinja2', posts=posts, search_form=search_form)
+        return render_template('post/search_result.html.jinja2', posts=posts)
     return render_template('post/search_post.html.jinja2', search_form=search_form)

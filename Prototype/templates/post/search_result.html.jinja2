@@ -1,0 +1,23 @@
+{% extends 'base.html.jinja2' %}
+{% from 'post/post_macro.html.jinja2' import post_template %}
+
+{% block title %}
+    <title>Feed</title>
+{% endblock %}
+
+{% block content %}
+    <h1 class="section-title"> Résultats de votre recherche</h1>
+    <div id="feed" class="d-flex justify-content-sm-center flex-wrap feed">
+        {% for post in posts %}
+            {# Here we create an id for the post card (different from the post id), ~ is used for concatenation #}
+            {# It will help us update this card, and only this card, when we "like" the post for example #}
+            {% with post_card_id = 'post_card_'~post.id %}
+                {{ post_template(post, post_card_id) }}
+            {% endwith %}
+        {% endfor %}
+    </div>
+    <div style="display: grid; place-items: center;">
+        <h2 class="subsection-title"><i class="bi bi-soundwave"></i></h2>
+        <h5 class="subsection-title">Vous avez vu tous les posts correspondant à votre recherche !</h5>
+    </div>
+{% endblock %}
