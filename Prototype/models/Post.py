@@ -2,7 +2,6 @@ from database.database import db
 from datetime import datetime
 from flask import Blueprint, render_template, jsonify
 from flask_login import login_required
-from models.Comment import Comment
 
 post = Blueprint('post', __name__, template_folder='templates')
 
@@ -20,7 +19,6 @@ class Post(db.Model):
     current_user_liked_it = db.Column(
         db.Boolean)  # To know if the current user liked this post or not (no multiple likes)
     comments = db.relationship('Comment', backref='article', lazy=True)
-    # tags = db.relationship('Tag', backref='article', lazy=True)
     tags = db.Column(db.Text)
 
     def __init__(self, user_id, username, image_name, description, tags):
@@ -50,5 +48,3 @@ def heart(post_id):
     # This string is for the html template that will need a standardized id for the "heart" button
     post_card_id = 'post_card_' + str(current_post.id)
     return jsonify('', render_template('post/post.html.jinja2', post=current_post, post_card_id=post_card_id))
-
-

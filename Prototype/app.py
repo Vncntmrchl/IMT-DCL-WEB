@@ -61,8 +61,10 @@ def setup():
         db.session.add_all([test, u1, u2, u3])
         db.session.commit()
         p1 = Post(user_id=u1.get_id(), username=u1.username, image_name='1.jpg', description='First post!', tags="lol1")
-        p2 = Post(user_id=u2.get_id(), username=u2.username, image_name='2.jpg', description='Second post!', tags="lol2 lol1")
-        p3 = Post(user_id=u3.get_id(), username=u3.username, image_name='3.jpg', description='vive le python', tags="lol3 lol1")
+        p2 = Post(user_id=u2.get_id(), username=u2.username, image_name='2.jpg', description='Second post!',
+                  tags="lol2 lol1")
+        p3 = Post(user_id=u3.get_id(), username=u3.username, image_name='3.jpg', description='vive le python',
+                  tags="lol3 lol1")
         p4 = Post(user_id=u3.get_id(), username=u3.username, image_name='4.jpg', description='cqfd', tags="lol4")
         u3.follow(u2)
         u1.follow(u2)
@@ -76,12 +78,4 @@ def setup():
         c3 = Comment(user_id=u2.get_id(), username=u2.username, body="It do be like that sometime", post_id=p1.id)
         db.session.add_all([c1, c2, c3])
         db.session.commit()
-        # t1 = Tag(body="beach", post_id=p4.id)
-        # t2 = Tag(body="sun", post_id=p4.id)
-        # db.session.add(t1)
-        # db.session.add(t2)
-        # db.session.commit()
-        # for tag in Tag.query.all():
-        #     print(tag.body)
-
     return app

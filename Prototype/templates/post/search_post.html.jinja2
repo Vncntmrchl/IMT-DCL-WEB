@@ -7,23 +7,20 @@
 
 
 {% block content %}
-    <div class="container">
-        <h1 class="section-title"> Faire une recherche</h1>
-        <div class="card">
-            <div class="card-body">
-                <form method="POST" action="{{ url_for('search_post.search') }}" enctype="multipart/form-data">
-                    {# Hidden tag used for CSRF protection #}
-                    {{ search_form.hidden_tag() }}
-                    {{ search_form.crsf_token }}
-                    <div class="form-group row" style="margin: 1em;">
-                        <label class="col-sm-2 col-form-label"></label>
-                        <div class="col-sm-4">
-                            {{ search_form.description(placeholder='Mot-clef', class='form-control') }}
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary submit-button" style="margin: 1em;">Faire une recherche</button>
-                </form>
-            </div>
+    <div class="container" style="margin-bottom: 5rem">
+        <h1 class="section-title">Rechercher</h1>
+        <div style="display: grid; place-items: center;">
+            <form method="POST" action="{{ url_for('search_post.search') }}" enctype="multipart/form-data">
+                {# Hidden tag used for CSRF protection #}
+                {{ search_form.hidden_tag() }}
+                {{ search_form.crsf_token }}
+                <div class="form-group">
+                    {{ search_form.description(placeholder="Tag ou nom d'utilisateur", class='form-control', style='width: 20rem') }}
+                    <button type="submit" class="btn btn-primary submit-button form-control comment-button" style="width: 20rem; margin-top: 0.5rem">
+                        Rechercher
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 {% endblock %}
