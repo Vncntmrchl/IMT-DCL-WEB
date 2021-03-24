@@ -45,8 +45,11 @@
 
 {% endblock %}
 
-<footer class="page-footer" style="display: grid; place-items: center; color: white";>
-    
+
+<footer class="page-footer" style="display: grid; place-items: center; color: white">
+    <div>Icons are from the Bootstrap Icons library or made by <a href="https://www.freepik.com"
+                                                                  title="Freepik">Freepik</a> from <a
+            href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
@@ -59,7 +62,7 @@
         crossorigin="anonymous"></script>
 
 <script>
-    /* Script for "hearting" a post */
+    /* Script for "liking" a post */
     function heart_post(post_id) {
         $.ajax({
             url: '/post/heart/' + post_id,

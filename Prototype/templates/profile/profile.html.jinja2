@@ -8,9 +8,14 @@
 
 
 {% block content %}
-    <h1 class="section-title"> Bienvenue, {{ current_user.username }}.</h1>
+    <h1 class="section-title" style="margin-bottom: 2rem"> Bienvenue, {{ current_user.username }}.</h1>
+    <h2 class="subsection-title">Se déconnecter</h2>
+    <div class="text-center" style="margin-bottom: 2rem">
+        <a href="{{ url_for('auth.logout') }}"><i class="bi bi-box-arrow-right"
+                                                  style="font-weight: bold; font-size: 3rem"></i></a>
+    </div>
     <h2 class="subsection-title">Vos posts</h2>
-    <div class="d-flex justify-content-sm-center flex-wrap feed">
+    <div class="d-flex justify-content-sm-center flex-wrap feed" style="margin-bottom: 2rem">
         <div class="card post text-center">
             <a type="button" href="{{ url_for('create_post.new_post_form') }}" class="my-auto"
                style="text-decoration: none"><i
@@ -30,11 +35,11 @@
         {% endfor %}
     </div>
     <h2 class="subsection-title">Votre tableau de bord</h2>
-    <div class="container">
+    <div class="container" style="margin-bottom: 2rem">
         <div class="row">
             <div class="col-sm-4">
-                <div class="card text-center">
-                    <div class="card-body">
+                <div class="card text-center" style="border: none">
+                    <div class="card-body dashboard">
                         <div class="card-text">Vous avez posté {{ number_images_user }} images ce qui représente</div>
                         <h5 class="card-title" style="margin-top: 0.75rem">{{ images_user_size }} Mb</h5>
                         <div class="card-text"></div>
@@ -43,8 +48,8 @@
                 </div>
             </div>
             <div class="col-sm-4">
-                <div class="card text-center">
-                    <div class="card-body">
+                <div class="card text-center" style="border: none">
+                    <div class="card-body dashboard">
                         <div class="card-text">Au total, {{ number_images_global }} images ont été postées, ce qui
                             représente
                         </div>
@@ -55,8 +60,8 @@
                 </div>
             </div>
             <div class="col-sm-4">
-                <div class="card text-center">
-                    <div class="card-body">
+                <div class="card text-center" style="border: none">
+                    <div class="card-body dashboard">
                         <div class="card-text">Au total, vous avez chargé {{ number_images_seen }} images au cours de
                             votre utilisation de Protogram, ce qui
                             représente
@@ -68,10 +73,5 @@
                 </div>
             </div>
         </div>
-    </div>
-    <h2 class="subsection-title">Se déconnecter</h2>
-    <div class="text-center">
-        <a href="{{ url_for('auth.logout') }}"><i class="bi bi-box-arrow-right"
-                                                  style="font-weight: bold; font-size: 3rem"></i></a>
     </div>
 {% endblock %}

@@ -7,6 +7,7 @@ from flask_wtf.file import FileRequired
 from wtforms import FileField, StringField, SubmitField
 from wtforms.validators import InputRequired, Length
 
+from config import Config
 from models.Post import Post
 from database.database import db
 from uploads.uploads import images_upload_set
@@ -49,8 +50,10 @@ def new_post_form():
 def del_post():
     post_id = request.json["id"]
     # An user can only delete its own posts
+    # We remove the post from the database and the image from the local storage
     current_post = db.session.query(Post).get(int(post_id))
     if current_post.user_id == current_user.id:
+        os.remove(os.path.join(Config.UPLOADED_IMAGES_DEST, current_post.image_name))
         db.session.query(Post).filter(Post.id == post_id).delete()
         db.session.commit()
     return jsonify('', render_template('profile/profile.html.jinja2'))

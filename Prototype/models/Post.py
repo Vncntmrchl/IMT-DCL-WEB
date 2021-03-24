@@ -21,12 +21,12 @@ class Post(db.Model):
     comments = db.relationship('Comment', backref='article', lazy=True)
     tags = db.Column(db.Text)
 
-    def __init__(self, user_id, username, image_name, description, tags):
+    def __init__(self, user_id, username, image_name, description, tags, hearts=0):
         self.user_id = user_id
         self.username = username
         self.image_name = image_name
         self.description = description
-        self.hearts = 0
+        self.hearts = hearts
         self.current_user_liked_it = False
         self.tags = tags
 

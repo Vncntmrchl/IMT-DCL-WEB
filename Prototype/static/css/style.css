@@ -140,3 +140,8 @@ nav {
     border: none;
     outline: none;
 }
+
+.dashboard {
+    background: var(--card-color);
+    color: var(--font-color);
+}

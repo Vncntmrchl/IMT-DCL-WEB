@@ -47,32 +47,46 @@ def setup():
     app.register_blueprint(create_comment, url_prefix='/create_comment')
     app.register_blueprint(search_post, url_prefix='/search_post')
 
-    # Here we create some tests models
+    # Here we create some demo models
     with app.app_context():
-        test = User(email='testtest@example.com', username='testtest',
-                    password=generate_password_hash('testtest', method='sha256'))
-        u1 = User(email='john@example.com', username='john',
-                  password=generate_password_hash('petitkebab', method='sha256'))
-        u2 = User(email='vincent@example.com', username='vincent',
-                  password=generate_password_hash('vincent', method='sha256'))
-        u3 = User(email='samir@example.com', username='samir',
-                  password=generate_password_hash('samirlemeilleur', method='sha256'))
-
-        db.session.add_all([test, u1, u2, u3])
-        db.session.commit()
-        p1 = Post(user_id=u1.get_id(), username=u1.username, image_name='1.jpg', description='First post!', tags="lol1")
-        p2 = Post(user_id=u2.get_id(), username=u2.username, image_name='2.jpg', description='Second post!',
-                  tags="lol2 lol1")
-        p3 = Post(user_id=u3.get_id(), username=u3.username, image_name='3.jpg', description='vive le python',
-                  tags="lol3 lol1")
-        p4 = Post(user_id=u3.get_id(), username=u3.username, image_name='4.jpg', description='cqfd', tags="lol4")
+        test = User(email='euryclee@example.com', username='Euryclée',
+                    password=generate_password_hash('eurycleemdp', method='sha256'))
+        u1 = User(email='john@example.com', username='John',
+                  password=generate_password_hash('johnmdp', method='sha256'))
+        u2 = User(email='esteban@example.com', username='Esteban',
+                  password=generate_password_hash('estebanmdp', method='sha256'))
+        u3 = User(email='Samir@example.com', username='Samir',
+                  password=generate_password_hash('samirmdp', method='sha256'))
+        u4 = User(email='brittany@example.com', username='Brittany',
+                  password=generate_password_hash('brittanymdp', method='sha256'))
+        db.session.add_all([test, u1, u2, u3, u4])
         u3.follow(u2)
         u1.follow(u2)
         u2.follow(u2)
         u3.follow(u3)
-        db.session.add_all([p1, p2, p3, p4])
         u1.follow(u2)
+        u1.follow(u4)
         db.session.commit()
+
+        p1 = Post(user_id=u1.get_id(), username=u1.username, image_name='1.jpg',
+                  description='Une superbe vue de la plage !', tags="plage mer", hearts=12)
+        p2 = Post(user_id=u2.get_id(), username=u2.username, image_name='2.jpg', description="Vive l'espace",
+                  tags="espace galaxie", hearts=23)
+        p3 = Post(user_id=u3.get_id(), username=u3.username, image_name='3.jpg', description='Photo de nuit.',
+                  tags="nuit ciel", hearts=7)
+        p4 = Post(user_id=u3.get_id(), username=u3.username, image_name='4.jpg',
+                  description='Souvenir de mon séjour à la montagne.', tags="montagnes vacances", hearts=9)
+        p5 = Post(user_id=u4.get_id(), username=u4.username, image_name='5.gif',
+                  description='Chill bears.', tags="chill ours", hearts=141)
+        p6 = Post(user_id=u1.get_id(), username=u1.username, image_name='6.jpg',
+                  description='Trop classe le Pape', tags="voiture pape", hearts=36)
+        p7 = Post(user_id=u2.get_id(), username=u2.username, image_name='7.jpg',
+                  description="J'adore les glaces !", tags="glace glaces", hearts=25)
+        p8 = Post(user_id=u3.get_id(), username=u3.username, image_name='8.jpg',
+                  description='Lever de soleil sur la mer', tags="soleil mer vacances", hearts=59)
+        db.session.add_all([p1, p2, p3, p4, p5, p6, p7, p8])
+        db.session.commit()
+
         c1 = Comment(user_id=u3.get_id(), username=u3.username, body="trop b1 cette tof omg", post_id=p4.id)
         c2 = Comment(user_id=u3.get_id(), username=u3.username, body="les rageux diront photoshop", post_id=p4.id)
         c3 = Comment(user_id=u2.get_id(), username=u2.username, body="It do be like that sometime", post_id=p1.id)
