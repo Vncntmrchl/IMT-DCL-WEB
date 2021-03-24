@@ -15,13 +15,13 @@ auth = Blueprint('auth', __name__, template_folder='templates')
 class RegistrationForm(FlaskForm):
     email = StringField('E-mail',
                         validators=[InputRequired(), Length(max=25)])
-    username = StringField("Nom d'utilisateur", validators=[InputRequired(), Length(min=5, max=12)])
+    username = StringField("Nom d'utilisateur", validators=[InputRequired(), Length(min=5, max=20)])
     password = PasswordField('Mot de passe', validators=[InputRequired(), Length(min=8, max=100)])
 
 
 class LoginForm(FlaskForm):
     # Basically the same as RegistrationForm but we do not need email to login
-    username = StringField("Nom d'utilisateur", validators=[InputRequired(), Length(min=5, max=12)])
+    username = StringField("Nom d'utilisateur", validators=[InputRequired(), Length(min=5, max=20)])
     password = PasswordField('Mot de passe', validators=[InputRequired(), Length(min=8, max=100)])
 
 
@@ -43,7 +43,7 @@ def register():
         return redirect(url_for('auth.login'))
     else:
         flash(
-            "Rappel : votre nom d'utilisateur doit contenir entre 5 et 12 caractères et votre mot de passe au moins 8 "
+            "Rappel : votre nom d'utilisateur doit contenir entre 5 et 20 caractères et votre mot de passe au moins 8 "
             "caractères.")
     # Form given as an argument so that if the form is not valid, all input data won't be reset
     return render_template('authentication/registration.jinja2', registration_form=registration_form)

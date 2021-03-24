@@ -10,7 +10,7 @@ class User(db.Model, UserMixin):
     # email and username must be unique and have a maximum length
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(25), unique=True)
-    username = db.Column(db.String(10), unique=True)
+    username = db.Column(db.String(20), unique=True)
     password = db.Column(db.String(100))
     posts = db.relationship('Post', backref='author', lazy='dynamic')
     followed = db.relationship('User',
