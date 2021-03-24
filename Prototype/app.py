@@ -90,6 +90,12 @@ def setup():
         c1 = Comment(user_id=u3.get_id(), username=u3.username, body="trop b1 cette tof omg", post_id=p4.id)
         c2 = Comment(user_id=u3.get_id(), username=u3.username, body="les rageux diront photoshop", post_id=p4.id)
         c3 = Comment(user_id=u2.get_id(), username=u2.username, body="It do be like that sometime", post_id=p1.id)
-        db.session.add_all([c1, c2, c3])
+        c4 = Comment(user_id=u1.get_id(), username=u1.username, body="Hmmmmm!", post_id=p7.id)
+        c5 = Comment(user_id=u4.get_id(), username=u4.username, body="Yumyum", post_id=p7.id)
+        c6 = Comment(user_id=u1.get_id(), username=u1.username,
+                     body="je gagne 781€ par minute en restant chez moi grâce a gagnerunmaxdeblé.io", post_id=p1.id)
+        c6 = Comment(user_id=u1.get_id(), username=u1.username,
+                     body="habemus papam", post_id=p6.id)
+        db.session.add_all([c1, c2, c3, c4, c5, c6])
         db.session.commit()
     return app
