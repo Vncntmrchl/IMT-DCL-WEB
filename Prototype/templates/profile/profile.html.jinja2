@@ -9,10 +9,6 @@
 
 {% block content %}
     <h1 class="section-title" style="margin-bottom: 2rem"> Bienvenue, {{ current_user.username }}.</h1>
-    <h2 class="subsection-title">Se déconnecter</h2>
-    <div class="text-center" style="margin-bottom: 2rem">
-        <a href="{{ url_for('auth.logout') }}"><i class="bi bi-box-arrow-right"
-                                                  style="font-weight: bold; font-size: 3rem"></i></a>
     </div>
     <h2 class="subsection-title">Vos posts</h2>
     <div class="d-flex justify-content-sm-center flex-wrap feed" style="margin-bottom: 2rem">

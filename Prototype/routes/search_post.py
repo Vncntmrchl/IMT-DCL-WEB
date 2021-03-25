@@ -23,6 +23,7 @@ def search():
             for tag in post.tags.split():
                 if tag == search_form.description.data:
                     posts.append(post)
+                    break
             # We can also look for users
             if post.username == search_form.description.data and post not in posts:
                 posts.append(post)

@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:sqlite:C:\Users\gloob\Desktop\WEB\IMT-DCL-WEB\Prototype\database\database.db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="database [2]" uuid="cf8c2cec-a038-4e78-8d6f-e7988273f517">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\cheap\Desktop\IMTA\IMT-DCL-WEB\Prototype\database\database.db</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

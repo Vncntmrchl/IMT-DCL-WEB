@@ -34,7 +34,13 @@
             <a class="nav-item nav-link" href="{{ url_for('search_post.search') }}"><i
                     class="nav-icon bi bi-search"></i></a>
         </div>
-        <button id="themeSwitch"><i class="bi bi-brightness-high"></i></button>
+
+        <div class="navbar-nav">
+            <button id="themeSwitch"><i class="bi bi-brightness-high"></i></button>
+                    <a class="nav-item nav-link" href="{{ url_for('auth.logout') }}"><i class="nav-icon bi-box-arrow-right"
+                                                   ></i></a>
+        </div>
+
     </div>
 </nav>
 
